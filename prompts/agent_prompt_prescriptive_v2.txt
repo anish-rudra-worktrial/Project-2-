@@ -1,0 +1,258 @@
+# v2 — SouthPark Centre Underwriting Odyssey Task (cell-explicit line-item spec)
+
+You are a second-year acquisitions associate at Harborview Capital Partners (Fund III). Over one
+week you underwrite SouthPark Centre (280,000 SF value-add office, Charlotte NC) into a full
+institutional model, IC package, and LOI, and quick-screen Ballantyne Office Centre. You build the
+model in a pre-structured workbook provided at /tmp/outputs/southpark_centre_underwriting.xlsx
+(also in /data/internal/SouthPark_Centre_Model_Template.xlsx); a separate Ballantyne screen goes in
+/tmp/outputs/ballantyne_wacc_screen.xlsx; the pipeline tracker is /tmp/outputs/Pipeline_Tracker_Q2_2026.xlsx.
+
+HOW THIS MODEL WORKS (read first)
+- This is a live-formula model, not data entry. You wire each tab with formulas and link tabs to
+  one another; the workbook is recalculated (LibreOffice) and graded on its computed values.
+- The template already contains every tab, every row label (column A), and the "Month #" period
+  header row on the monthly tabs (Rent Roll Calc, Property Cash Flow, Waterfall run left-to-right by
+  month; CapEx by construction month). Fill the value cells under each labeled row; do not rename or
+  move tabs, row labels, or the Month # headers — every value is graded by (tab, row label, month).
+- This spec names each line item by tab and row label, the period it covers, and its driver or
+  pinned assumption. Where it says "exact figure reported," transcribe the precise number from the
+  cited source document and verify it; do not approximate.
+- SENSE CHECKS must tie. The Waterfall (rows 85–91) and Exit Analysis (rows 21–24) carry built-in
+  check rows ("LP + GP Net CF = Levered CF every month", "Unreturned capital = 0 after exit", "Rent
+  Roll SF = Building SF", etc.). Your model is correct only when these evaluate TRUE / 0; they are
+  graded.
+- RECOMMENDED-ASSUMPTION rows are yours to fill with judgment and are NOT graded. Where a pinned
+  assumption says "for simplicity," the Assumptions tab leaves space for you to propose a better
+  figure with a one-line rationale from the comps, T-12 trend, or submarket report. Pinned values
+  drive the graded model; your recommendations sit alongside.
+
+────────────────────────────────────────────────────────────────────────────
+PHASE 1 — Deal Intake, Reconciliation & Pipeline Setup
+Tabs: Assumptions, IC Summary (Deal Summary block), Rent Roll, Rent Roll Calc (in-place data); Pipeline_Tracker
+────────────────────────────────────────────────────────────────────────────
+
+1A. Assumptions tab — PROPERTY inputs (exact figures from the Offering Memorandum,
+    /data/dataroom/Offering_Memorandum_SouthPark_Centre.pdf). Fill column B:
+  • A5  Building SF (RSF) ............ exact: 280,000
+  • A6  Purchase Price .............. exact asking: 52,000,000  (Phase 6 revises the base case to 50,000,000)
+  • A7  Acquisition Costs (% gross) . 1.5%
+  • A8  Price per SF ................ formula = Purchase Price / Building SF
+  • A9  Stories ..................... exact from OM
+  • A10 Floor Plate (SF) ............ exact from OM
+  • A11 Parking Spaces .............. exact from OM
+  • A12 Close Date .................. 8/1/2026 (per Email 4)
+  HOLD & EXIT: A15 Hold Period 60; A16 Exit Cap Rate 7.75%; A17 Disposition Costs 2.0%.
+  GROWTH: A20 Rent Growth 3.0%/yr; A21 Expense Growth 2.7%/yr (30-yr CPI, per Standard Lease Guide +
+    US_Inflation_Data.xlsx); A22 Stabilised Occupancy; A23 Parking 2.5%; A24 Antenna 2.0%; A25 Reserves 2.5%.
+  OPERATING EXPENSES (Year 1, annual) A28–A42: transcribe each line from the T-12 Operating Statement
+    tab / T12_Operating_Statement_2025.xlsx (Real Estate Taxes, Insurance, Utilities, R&M, Janitorial,
+    Landscaping, Security, Elevator, HVAC, G&A, Marketing); A41 Management Fee = 3.5% of EGI; A42
+    Building Reserves $0.50/SF/yr.
+  OTHER INCOME A45 Parking; A46 Antenna (T-Mobile only = 32,000, NOT 62,000 — the Sprint $30K
+    contract expired Feb 2026; verify via Vendor_Contracts_Summary.xlsx); A47 Storage.
+  RENOVATION A50 Renovation Budget = 7,500,000 (Pinnacle).
+  → RECOMMENDED (ungraded): A128–A135 — propose sharper growth/opex assumptions with a one-line
+    rationale from the T-12 trend, submarket report, or comps.
+
+1B. IC Summary tab — Deal Summary / Financial Summary block (this is where the broker-vs-reconciled
+    comparison lives — NOT the Assumptions tab). Fill the value column:
+  • A34 Broker's Stated NOI ......... exact as printed in the OM: 3,880,000
+  • A35 Reconciled NOI .............. formula from the corrected income lines (see 1D)
+  • A13 Physical Occupancy (Corrected) 77.4%  (see 1D — the ghost tenant is excluded)
+  • A14 Number of Tenants (Actual) .. 18  (excludes the vacated ghost #20 and departing Meridian #1)
+  Leave the IRR/return cells (A36–A39, A64–A68) to be driven by the model in later phases.
+
+1C. Rent Roll tab — populate all 20 tenant rows (rows 5–24) from Rent_Roll_Current_05-2026.xlsx,
+    cross-verified against the 20 lease abstracts (/data/dataroom/lease_abstracts/Lease_Abstract_Tenant_01..20.pdf).
+    Per tenant: suite, floor, SF, base rent $/SF, escalation %, escalation month, start, expiry,
+    renewal option. Exact anchors: #1 Meridian 76,000 SF @ $19.50, exp 10/31/2026; #6 Brightpath
+    7,900 SF @ $20.75 (use the lease-abstract rate, NOT the rent roll's $21.25); #20 SouthPark Dental
+    1,800 SF, exp 3/31/2026 (vacated). (The template's Rent Roll has 28 entry rows = 20 tenants + 8
+    vacant/spec rows; fill the 20 tenant rows.)
+
+1D. Reconciliation (correct the data directly in the model; record broker-vs-reconciled on IC Summary):
+  • Zero the ghost tenant #20 → leased SF 218,400 → 216,600; occupancy 78.0% → 77.4%.
+  • Brightpath at $20.75 (annual 163,925).
+  • Exclude the $42,000 Westlake lease-termination fee (non-recurring).
+  • Antenna income 32,000 (T-Mobile only).
+
+1E. Rent Roll Calc tab — wire the in-place tenant blocks: each tenant's monthly base rent across the
+    Month # columns, with contractual escalations on the anniversary month. (The full monthly engine —
+    rollover, reimbursements, TI/LC, spec suites — is completed in Phases 4–5.)
+
+1F. Pipeline_Tracker_Q2_2026.xlsx — add two rows (match the tracker's exact status vocabulary):
+  • SouthPark Centre: Status "Screening", Broker "Crestline Advisors", SF 280,000, Asking 52,000,000, Strategy "Value-Add".
+  • Ballantyne Office Centre: Status "Awaiting Info", Broker "Ashford Partners", SF 120,000, Asking blank (IM not yet received), Strategy "Stabilized Core".
+
+────────────────────────────────────────────────────────────────────────────
+PHASE 2 — Deal B Quick Screen  (separate file: /tmp/outputs/ballantyne_wacc_screen.xlsx)
+────────────────────────────────────────────────────────────────────────────
+Read Email 8 (the Ballantyne IM + rent roll are now available; the attachment is the PDF) and
+/data/dataroom_deal_b/Ballantyne_Office_Centre_IM.pdf + Ballantyne_Rent_Roll.xlsx. Extract exact:
+asking 28,000,000; SF 120,000; occupancy 94%; trailing NOI ~1,550,000; broker rental growth 2.0%.
+Build the levered-return WACC screen, each input on its own labeled row with a source citation:
+  • Going-In Cap Rate ........ = trailing NOI / asking price  (≈ 5.5357%)
+  • Unlevered IRR ............ = Cap Rate + NOI growth = 5.5357% + 2.0%  (≈ 7.5357%)
+  • Cost of Debt (Rd) ........ 5.5% all-in  (Email 8, per Rachel Kim market indication)
+  • LTV ...................... 60%  (Email 8)
+  • Levered Equity Return (Re) = (Unlevered IRR − LTV×Rd) / (1 − LTV)  (≈ 10.589%)
+  • Fund Minimum Levered IRR . 15%  (Fund_Investment_Criteria.pdf)
+  • Shortfall to Hurdle ...... = Re − hurdle  (≈ −4.41%)
+  • Verdict .................. FAIL (Re < hurdle); write a 2–3 sentence pass recommendation (priced
+    too tight, no value-add angle).
+Tracker: Ballantyne → Status "Screened - Pass", Asking 28,000,000, note "Levered return below fund
+hurdle. No value-add angle." Deal B does NOT go in the SouthPark workbook.
+
+────────────────────────────────────────────────────────────────────────────
+PHASE 3 — Market Research & Comparable Analysis
+Tabs: SouthPark Submarket, Sales Comp Analysis, Rental Comp Analysis; Rent Roll (benchmark section)
+────────────────────────────────────────────────────────────────────────────
+3A. SouthPark Submarket tab — reproduce the submarket report (exact figures) from
+    /data/market_research/SouthPark_Submarket_Report_Q1_2026.pdf into the labeled rows A6–A48:
+    inventory, # buildings, avg age; vacancy overall + Class A / B-B+ / C, direct, sublease (A11–16);
+    asking NNN rents by class + weighted avg (A19–24); net & gross absorption TTM, avg deal size,
+    demand drivers (A27–30); construction pipeline + named projects (A33–37); rent-growth trends
+    (A40–43); notable transactions (A46–48). [primary-source transcription — verify each figure.]
+3B. Sales Comp Analysis tab — 25 transactions (#1–25 in column A). For each comp # set the
+    "Comp Type (classification code)" column: 1 = usable current trade, 2 = crisis-era (GFC/COVID),
+    3 = wrong submarket/type, 4 = incomplete. Fill the averages rows A27 (Current Market Comps),
+    A28 (Crisis Era), A29 Target Going-in, A30 Target Underwritten.
+3C. Rental Comp Analysis tab — 50 transactions (#1–50). Set "Comp Type" 1–6 per comp (1 usable;
+    2 older; 3 wrong submarket; 4 wrong type; 5 incomplete; 6 large-block BTS). Averages A52–A53.
+3D. Rent Roll tab — rent-benchmark section: per tenant, market rent by size range and the in-place
+    vs market spread, with the supporting comp #.
+Tracker: SouthPark → "Underwriting - Market Research".
+
+────────────────────────────────────────────────────────────────────────────
+PHASE 4 — Lease-by-Lease Underwriting & Assumptions  (Assumptions tab + per-tenant on Rent Roll/Calc)
+────────────────────────────────────────────────────────────────────────────
+LEASING ASSUMPTIONS BY SIZE (Assumptions A54–A64) from Standard_Lease_Assumptions_Guide.pdf — fill
+the bucket table (note the template lists buckets bottom-up by Min SF at A55): per bucket
+(>15,000 / 5,000–15,000 / 2,000–5,000 / <2,000 SF) set renewal probability, downtime (mo), TI new,
+TI renewal, leasing commission, free rent. A62 Renewal Discount %; A63 Spec Suite TI 35 ($/SF,
+pre-revision — Phase 6 raises to 40); A64 Spec Suite Buildout Duration 6.
+JV / EQUITY WATERFALL (A66–A74): A67 GP 10%, A68 LP 90%, A69 Preferred Return 8.0% (effective
+annual), A70 Monthly Pref Rate = (1.08)^(1/12)−1, A72 GP Target Share of Profits 20%, A73 Residual
+GP 20%, A74 Residual LP 80% (per Emails 3 & 4).
+PER-TENANT (Rent Roll / Rent Roll Calc): each tenant references its size-bucket defaults; document
+deviations where comps support. Tenant #20 (ghost) renewal 0% (vacated). Tenant #1 (Meridian, 76k)
+renewal 0% (departing per CBJ_Meridian_HQ_Relocation.pdf) — underwrite rent through the 10/31/2026
+lease expiry, not the article's move date. Three near-term rollovers (Carter exp 9/2027, Lakeview
+7/2027, Queen City 1/2028): probability-weight renew vs vacate.
+SPEC SUITES (6, on CapEx A26–31 / Rent Roll Calc): Suite 610 14,000 SF fl6; 620 13,000 fl6; 710
+13,000 fl7; 720 12,000 fl7; 810 12,500 fl8; 820 11,500 fl8 (= 76,000). Buildout start floor 6 = month
+4, floor 7 = month 6, floor 8 = month 8 (pre-revision; Phase 6 shifts +2 months).
+→ RECOMMENDED (ungraded): per-tenant assumption refinements with comp references.
+
+────────────────────────────────────────────────────────────────────────────
+PHASE 5 — Monthly Proforma (Property Cash Flow tab, unlevered)
+Periods: monthly, Month 1–60 across the Month # header row (row 4). Build each labeled row as a
+formula across all 60 months; link revenue from Rent Roll Calc, capex from CapEx Schedule.
+────────────────────────────────────────────────────────────────────────────
+Build these rows (column A label → driver), monthly:
+  • A8  Gross Rental Income ......... sum of in-place + spec-suite base rent from Rent Roll Calc (TOTALS row 351)
+  • A9  Free Rent .................. concessions per the leasing assumptions
+  • A10 Net Rental Income .......... = Gross Rental Income − Free Rent
+  • A12 Expense Recovery (NNN) ..... tenant pro-rata share of the reimbursable opex pool (all opex
+                                     except management fee + marketing); vacant suites recover 0
+  • A13 Other Income ............... parking 230,000/yr (2.5% growth) + antenna 32,000/yr (2.0%) + storage 20,000/yr (flat)
+  • A14 Effective Gross Income ..... = Net Rental Income + Expense Recovery + Other Income − vacancy
+  • A16 General Vacancy Adjustment . per stabilised occupancy assumption
+  • A17 Operating Expenses ......... Year-1 reconciled opex escalated at 2.7%/yr (Expense Growth Index)
+  • A18 Management Fee ............. 3.5% of EGI (circular — iterate or lag one month)
+  • A19 Net Operating Income ....... = EGI − Operating Expenses − Management Fee
+  • A21 Renovation CapEx ........... linked from CapEx Schedule (Pinnacle, phased)
+  • A22 Building Reserves .......... $0.50/SF/yr escalating 2.5%
+  • A23 Tenant Improvements ........ per-tenant TI from the leasing assumptions / Rent Roll
+  • A24 Leasing Commissions ........ per-tenant LC from the leasing assumptions
+  • A25 Total Capital Expenditure .. = sum A21:A24
+  • A27 Unlevered Operating Cash Flow = NOI − Total Capital Expenditure
+  • A29 Acquisition Price .......... month 1 = −Purchase Price (Assumptions A6)
+  • A30 Acquisition Costs .......... month 1 = −1.5% × Purchase Price
+  • A31 Disposition Price .......... month 60 = Exit Analysis Net Sale Proceeds (gross)
+  • A32 Exit Costs ................. month 60 = −2.0% × gross exit value
+  • A34 Total Unlevered Cash Flow .. = A27 + A29 + A30 + A31 + A32
+  • A35 IRR / A36 Required Capital / A37 Profit / A38 MoIC ... unlevered return summary off row 34
+  (The debt-service and levered sections, rows 41–75, are built in Phase 7.)
+  → Exit Analysis tab (linked): A5 Forward 12-Month NOI (months 61–72), A6 Exit Cap 7.75%, A7 Gross
+    Exit Value = fwd-12 NOI / exit cap, A9 Disposition Costs 2.0%, A10 Net Sale Proceeds. SENSE CHECKS
+    A22 "Rent Roll SF = Building SF", A23 "Year-5 NOI positive", A24 "Exit value > purchase price"
+    must hold.
+  → RECOMMENDED (ungraded): propose a vacancy/credit-loss or opex-inflation refinement with a
+    one-line rationale; pinned values above drive the grade.
+
+────────────────────────────────────────────────────────────────────────────
+PHASE 6 — VP Feedback & Model Revisions  (Email 9; modify Assumptions + Rent Roll Calc; cascade)
+────────────────────────────────────────────────────────────────────────────
+Read Email 9 (Sarah Chen). Apply three revisions and verify the model cascades:
+  • Assumptions A6 Purchase Price ... 52,000,000 → 50,000,000 (base case). Flows to loan sizing,
+    equity, and all returns.
+  • Assumptions A63 Spec Suite TI ... 35 → 40 ($/SF). Cascades to all six suites on Rent Roll Calc
+    and to CapEx / total project cost / loan sizing / equity.
+  • Rent Roll Calc buildout starts ... floor 6 month 4 → 6, floor 7 month 6 → 8, floor 8 month 8 →
+    10 (+2 months each). Spec-suite revenue zero-period extends 2 months longer.
+VERIFY the cascade: Property Cash Flow spec-suite revenue, CapEx Schedule, and Exit Analysis all
+update. (This phase has no new cells — it tests that the model is truly linked.)
+Tracker: SouthPark → "Underwriting - VP Revisions Applied".
+
+────────────────────────────────────────────────────────────────────────────
+PHASE 7 — Construction Loan & Debt Schedule  (Leverage Options tab + Property Cash Flow rows 41–75)
+────────────────────────────────────────────────────────────────────────────
+Read the three term sheets (/data/lenders/) and Email 6 (Atlantic Life lacks capacity).
+LEVERAGE OPTIONS tab — fixed 4-column layout keyed off the "Term" row (row 4): col B = "Active
+Selection" (your chosen lender, repeated), col D = Atlantic Life Insurance (under the "STALE QUOTE"
+header), col E = First Southeast Bank, col F = Piedmont Capital. Fill each lender's column for rows
+A5–A22 from its term sheet: Loan Type, Rate Type, Spread, Current SOFR, All-In Rate, Max LTC, Max
+LTV, Min DSCR at Conversion, Conversion Month, Closing Costs, IO Period, Amortization, Term,
+Extension Options, Recourse, Origination Fee, Prepayment, Interest Reserve (= "PIK During
+Construction"). Mark Atlantic Life "STALE - No Capacity"; an agent that SELECTS Atlantic fails.
+LOAN SIZING (A26–28) on the revised $50M base: acquisition 50,000,000 + closing 1.5% + renovation
+7,500,000 (link CapEx) + capitalized PIK construction interest (no separate funded reserve) +
+operating shortfall during lease-up (from Property Cash Flow) + origination fee (selected lender) +
+working capital reserve 350,000.
+Underwrite BOTH viable lenders (First Southeast, Piedmont): size loan, construction interest,
+conversion month (first month DSCR threshold met), levered IRR (A35) / MoIC (A36). SELECT the higher
+levered IRR → First Southeast Bank (≈23.6% vs Piedmont ≈21.4%); Loan Amount ≈ 57,936,597.
+PROPERTY CASH FLOW rows 41–75 (monthly): Acq/Dev Loan — BoP (A43), Drawdown (A44), PIK Interest
+(A45), Scheduled Amort (A46), Repayment (A47), EoP (A48), Cash Interest (A50), Closing/Origination
+(A51–52); Permanent Loan rows 58–67 (BoP/Drawdown/Amort/Repay/EoP, Cash Interest); Total CF from
+Financing (A69); Total Levered Cash Flow (A71) = Unlevered CF − debt service + exit equity proceeds;
+IRR (A72) / Required Capital (A73) / Profit (A74) / MoIC (A75).
+
+────────────────────────────────────────────────────────────────────────────
+PHASE 8 — Waterfall, Returns, IC Package & LOI  (Waterfall, IC Summary, LOI; Assumptions sensitivity)
+────────────────────────────────────────────────────────────────────────────
+WATERFALL tab (monthly, rows 7–83): Deal Cash Flow A8 Levered CF (link Property Cash Flow row 71),
+A9 Capital Call, A10 Available for Distribution; Capital Contributions A12–17; LP Ledger A19–27
+(unreturned capital + accrued/unpaid pref); GP Ledger A29–37; 4-tier Distribution Waterfall A39–60
+— Tier 1 LP Pref, Tier 2 GP Pref, Tier 3 LP Return of Capital, Tier 4 GP Return of Capital, Tier 5
+Catch-up to GP until GP has 20% of profits, Tier 6 Residual 80% LP / 20% GP (pref 8% compounding
+monthly on both LP and GP, LP priority); Partner Cash Flows A62–68; Returns Summary A70–83 (LP/GP/
+Deal IRR, equity multiples, peak equity outstanding, GP share of total profit). These are graded
+against the model's computed values.
+SENSE CHECKS (Waterfall A85–A91) must evaluate TRUE/0: tier dists = available each month; LP + GP
+Net CF = Levered CF each month; unreturned capital = 0 after exit; accrued unpaid pref = 0 after
+exit; GP profit share ≥ target (catch-up complete); LP IRR < Deal IRR < GP IRR (promote intact).
+SENSITIVITY TABLES (Assumptions A77–A105) — build as two-way data tables that reference the model
+(so recalc fills them): (1) Purchase Price 46–50M × Exit Cap base ±50 bps in 25-bp steps; (2)
+Construction-cost overrun 0/10/20/30% × Lease-up delay 0/3/6/9 months; (3) Purchase Price ×
+market rent growth base ±200 bps in 50-bp steps.
+IC SUMMARY tab — every value LINKS to another tab (no hardcoded numbers; the recalc grading credits
+the computed values): A35 Reconciled NOI, A36 Year-1 NOI, A37 Stabilized NOI, A38 Exit NOI, A39
+Unlevered IRR; Debt Terms A42–52 (Selected Lender "First Southeast Bank", rate, loan amount, LTC,
+DSCR, IO, term, A52 selection rationale); JV Returns A61–68 (GP/LP IRR, GP/LP equity multiple, Total
+Project IRR); A71 Go / No-Go = "Go"; A72 rationale; A73 key metric vs fund threshold.
+LOI tab (A6–A27) from Email 4: A11 Buyer "Harborview Capital Partners (or designee)"; A7 Address
+"4800 Sharon Road, Charlotte NC"; A12 Purchase Price 50,000,000; A13 Deposit 1% hard ($500,000);
+A14 Due Diligence 45 days; A15 Financing Contingency 30 days; A20 Exclusivity 60 days; A22 Tenant
+Estoppels ≥75% by occupied SF; A23 Title & ALTA survey; A24 Environmental Phase I at seller cost;
+A16 Target Close 8/31/2026; A27 LOI validity 10 business days.
+Tracker: SouthPark → "IC Ready", then after the LOI is drafted → "LOI Sent".
+
+────────────────────────────────────────────────────────────────────────────
+NOTES
+- Recalculate (tools/recalc.sh or `soffice --headless --convert-to xlsx`) and verify the SENSE
+  CHECKS tie before considering the model done; grading reads computed values.
+- Pinned "for simplicity" assumptions drive the grade; the RECOMMENDED rows are your ungraded
+  analysis. Do not rename tabs, row labels, or the Month # headers.
+────────────────────────────────────────────────────────────────────────────

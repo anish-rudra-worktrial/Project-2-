@@ -1,0 +1,9 @@
+# transient sandbox / scratch
+/tmp/
+southpark_env/
+__pycache__/
+*.py[cod]
+.DS_Store
+# iCloud conflict copies
+* 2.*
+*\ 2.*

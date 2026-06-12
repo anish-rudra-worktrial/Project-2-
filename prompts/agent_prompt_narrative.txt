@@ -1,0 +1,77 @@
+It is Monday morning and the SouthPark Centre file has landed on my desk. I am a second-year
+acquisitions associate at Harborview Capital Partners (Fund III), and this is mine to run to
+Investment Committee by Friday. There is a broker package in the data room, a string of emails
+from my VP and the partners, three lender term sheets, and a market-research folder. By the end of
+the week I owe a full underwriting model, an IC recommendation, and, if it's a Go, a signed-out
+LOI. There is also a second, smaller deal (Ballantyne) my VP wants me to glance at and clear off
+the pipeline.
+
+The way I'll work this deal: I build everything in the provided workbook at
+/tmp/outputs/southpark_centre_underwriting.xlsx (a structured shell with the tabs and row labels
+already laid out, I fill it in, I don't rename it), I keep the firm's running pipeline tracker
+current as each deal moves stages, and I recalculate and check my own model before I trust a
+number. I need to read the emails in order first, to understand the chronologically of info and there are some new requests and instructions changing around this deal.
+
+The Offering Memorandum will quote a headline occupancy, a trailing NOI, and a cap rate, and my whole job in the first phase is
+to figure out where those are soft. So I pull the rent roll and I open every lease, one tenant at a
+time, and I check the rent roll against what the leases actually say. Somewhere in here there will
+be a tenant the broker is still counting who has quietly gone dark, and a rent on the roll that the
+lease does not support, I need to find those myself and decide how they move the real occupancy and
+the real in-place income. I also read the other-income lines skeptically: a one-time fee is not
+income I can underwrite, and an antenna contract that has half expired is not the number on the OM.
+I record the broker-stated figures next to my reconciled figures so the IC can see exactly what I
+changed and why. Then I log both deals on the tracker at their right stage.
+
+When the Ballantyne package shows up, I need to work out the implied going-in cap, layer on the broker's growth to get an unlevered return, and then lever it
+to an equity return using the cost of debt and LTV my VP quoted. I compare that to the fund's
+minimum and write the honest two-line answer. 
+
+With the deal real, I go to the market. I read the submarket report and reproduce its facts into my
+model so my assumptions are anchored to something defensible, and I work through the comparable
+sales and the comparable leases, there are a lot of them, and most are noise: crisis-era trades,
+the wrong submarket, the wrong asset type, incomplete data. I have to judge each one and keep only
+what's truly comparable, and I note why for the rest. Out of the lease comps I'm really trying to
+answer one question: what does space like this actually rent for today, by suite size, so I can mark
+each in-place tenant to market and see where the upside is.
+
+Now I underwrite tenant by tenant. Our standard leasing guide gives me default renewal
+probabilities, downtime, TI, and commissions by suite-size bucket; I apply those, and I deviate only
+where a comp tells me to and I can defend it. The big vacancy, the floors the anchor is giving back, I plan to re-demise into smaller spec suites and lease up over time, with a buildout budget and a
+schedule. A couple of near-term rollovers I treat probabilistically rather than pretending I know.
+This is where I set the assumptions the whole model will run on.
+
+Then I build the proforma, month by month over the hold. Contractual rent with escalations, the
+expected-value blend where tenants might roll, NNN reimbursements, the other income, operating
+expenses grown at inflation, the management fee (which is circular off EGI, so I handle that), down
+to NOI. I subtract the capital plan, renovation, ongoing TI and commissions, reserves, to get to
+unlevered cash flow, and I size the exit off a forward-looking NOI and an exit cap. I want to see an
+unlevered return before any leverage so I know whether the real estate works on its own.
+
+Midweek my VP sends revisions: a different purchase price to run as the base case, a different spec-
+suite TI allowance, and a shift in the buildout timing. This is the real test of whether I built the
+model right, if it's properly linked, I change three inputs and everything downstream moves
+correctly, and I verify that it did rather than assuming.
+
+Financing next. I have three term sheets, but one lender is effectively out, my capital-markets
+contact has flagged they have no capacity, so however good their terms look, selecting them would be
+a mistake. I underwrite the two real options side by side: size each loan against total project
+cost, accrue the construction interest, find the month it converts to permanent, and compute the
+levered return each one produces. I pick the lender that actually delivers the better levered return
+and document why. Then I extend the cash flow with the debt service and the levered cash flow.
+
+Finally the equity and the package. I run the JV waterfall, return of capital, the preferred
+return, the GP catch-up, and the residual promote split, month by month, and I read off the LP and
+GP returns. I will not trust it until my sense-checks tie: distributions equal what's available
+every month, the partners' cash flows sum back to the deal's levered cash flow, and all capital and
+preferred are fully returned by exit. I stress the deal across purchase price, exit cap, rent
+growth, and cost and lease-up risk in sensitivity tables. Then I write the IC summary with every
+number linked back to the model, corrected occupancy, reconciled NOI, the debt I chose and why, the
+returns, and a clear Go or No-Go measured against the fund's criteria. If it's a Go, I draft the LOI
+off the terms in my VP's email and move the deal to LOI Sent.
+
+I derive the figures myself, the real occupancy, the reconciled income, how the lines forecast, what
+the lenders size to, what the partners earn, and whether this clears our bar. The deterministic
+grader checks the model I produce (the data deliverables, the reconciliations, the debt and
+waterfall, and the sense-checks that must tie), so the model has to be recalculated and internally
+consistent before I call it done. Pinned house assumptions (the fund's standard rates and the
+guide's defaults) I take as given; everything else is mine to work out.
