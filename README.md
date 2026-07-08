@@ -14,6 +14,7 @@ works, what I verified manually, and what limits remain.
 |---|---|
 | `SUBMISSION.md` | Main reviewer-facing summary and final package |
 | `QA_ASSESSMENT.md` | Detailed task QA notes, defects, and fixes |
+| `TRACE_EVIDENCE.md` | Concrete capped-eval trace facts and what they changed |
 | `DEPLOYMENT_ALIGNMENT.md` | Local repo surface compared with the deployed task surface |
 | `tools/qa_loop/` | Batch QA checker for prompt, verifier, file, and environment drift |
 | `tools/grader/` and `grade.py` | Deterministic local grader and supporting utilities |
@@ -54,7 +55,8 @@ The grader requires `openpyxl`. Recalculation also needs LibreOffice when using 
 ## Review Path
 
 1. Read `SUBMISSION.md`.
-2. Check `QA_ASSESSMENT.md` for the task findings.
-3. Check `DEPLOYMENT_ALIGNMENT.md` before using the deployed task.
-4. Run `python3 tools/qa_loop/qa_check.py --repo .`.
-5. Use `TASK_OVERVIEW.md` only when you need the full task spec.
+2. Check `TRACE_EVIDENCE.md` for the actual eval behavior.
+3. Check `QA_ASSESSMENT.md` for the task findings.
+4. Check `DEPLOYMENT_ALIGNMENT.md` before using the deployed task.
+5. Run `python3 tools/qa_loop/qa_check.py --repo .`.
+6. Use `TASK_OVERVIEW.md` only when you need the full task spec.

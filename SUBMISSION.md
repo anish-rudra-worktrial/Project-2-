@@ -22,6 +22,8 @@ is hard, not because the seed email, prompt, repo docs, and verifier point to di
 ## Package Contents
 
 - Added `QA_ASSESSMENT.md` with the Part 1 assessment, evidence, risks, and production blockers.
+- Added `TRACE_EVIDENCE.md` with the capped eval job id, session id, score, tool-use counts, and
+  concrete trace findings.
 - Added `DEPLOYMENT_ALIGNMENT.md` to separate the local repo surface from the deployed Fleet
   surface.
 - Added `prompts/deployed_fropbox_prompt.md` to preserve the observed deployed prompt contract.
@@ -70,11 +72,21 @@ making the Fropbox source room load-bearing, preserving sequential source reconc
 tightening the verifier around source-backed evidence. If the deployed task only exposes emails and
 8 attachments, it is likely too easy and may sit closer to 75 to 150 calls.
 
-I also ran one capped live eval on the deployed task with `pass_k=1`. The run completed 250 steps
-and scored `0.04`. The trace showed the agent reached the Fropbox/Docket workflow and found the
-SouthPark source folders, then spent many later steps trying to work around missing practical access
-to bash/Python execution for workbook creation and upload. That looks like a deployed
-tooling/interface problem, not a clean underwriting-reasoning failure.
+I also ran one capped live eval on the deployed task with `pass_k=1`.
+
+- Job id: `wjob_314ec7fa00664b64ab77`
+- Session id: `fe85edc1-6095-4b1b-a005-1e6016110711`
+- Result: 250 steps, score `0.04`
+- Tool shape: 250 `computer` calls, including 143 navigations, 52 clicks, 30 scrolls, and 11 key
+  actions
+
+The trace is important because it changes the diagnosis. The agent did reach Docket/Fropbox, found
+`SouthPark Centre Underwriting`, saw the main folders, and read real deal evidence like the tenant
+roster and market data. The late failure concentrated around finding a usable bash/Python path and
+uploading Excel files through Docket. That looks like a deployed execution problem, not a clean
+underwriting-reasoning failure.
+
+See `TRACE_EVIDENCE.md` for the concrete trace notes.
 
 Run:
 
@@ -116,6 +128,19 @@ Sample outputs:
 - `tools/qa_loop/sample_reports/southpark_alignment_report.md`
 - `tools/qa_loop/sample_reports/southpark_alignment_report.csv`
 - `tools/qa_loop/sample_reports/southpark_alignment_report.json`
+
+## Trace Review
+
+The actual eval trace supports two findings:
+
+- The deployed task is not merely theoretical. The agent reached the deal room, source folders,
+  tenant roster, market data, and `Outputs` folder.
+- The low score is not clean evidence that the finance work alone is too difficult. The trace shows
+  substantial late effort spent on execution and upload mechanics.
+
+That is why my recommended production fix is not just "make the task easier." It is to make the
+source room load-bearing while also giving the agent a clear, working route to create and upload the
+three Excel deliverables.
 
 ## Human Review Sample
 

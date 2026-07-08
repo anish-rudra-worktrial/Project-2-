@@ -56,9 +56,14 @@ environment snapshot counts, and extracted source facts from the visible attachm
     snapshot I could inspect.
 - The deployed verifier expects a Fropbox source room with at least 64 source files and six source
   folders. That source-room expectation should be confirmed directly against a fresh deployed seed.
-- A capped live eval run completed 250 steps and scored `0.04`. The trace showed the agent could
-  reach the Fropbox/Docket source-folder structure, but then spent many later steps trying to work
-  around missing practical access to bash/Python execution for workbook creation and upload.
+- A capped live eval run completed 250 steps and scored `0.04`.
+  - Job id: `wjob_314ec7fa00664b64ab77`
+  - Session id: `fe85edc1-6095-4b1b-a005-1e6016110711`
+  - Tool-use shape: 250 `computer` calls, including 143 navigations, 52 clicks, 30 scrolls, and
+    11 key actions.
+  - The trace reached the Fropbox/Docket source-folder structure, read deal evidence, and then
+    spent many later steps trying to work around missing practical access to bash/Python execution
+    for workbook creation and upload.
 
 ## Major Findings
 
@@ -168,6 +173,18 @@ because the agent got stuck on tooling/execution access rather than only on unde
 With the full Fropbox source room and a clear bash/Python execution path, the task can plausibly
 target 250-300 calls for this assignment.
 
+Observed trace anchors:
+
+- The agent found `SouthPark Centre Underwriting`.
+- The agent saw `Ballantyne Office Centre`, `Construction`, `Dataroom`, `Internal`, `Lenders`,
+  `Market Research`, and `Outputs`.
+- The agent read tenant roster evidence, including Meridian at 76,000 SF and total weighted
+  occupancy of 218,460 SF, 78.7 percent, and $25.26/SF.
+- The agent read market data, including 4.2M SF inventory, 14.6 percent vacancy, and Class A asking
+  rent around $36.29/SF.
+- The agent later searched for a way to run Python/bash and hit local browser access limits,
+  including `127.0.0.1` not being allowlisted.
+
 Likely competent-agent tool calls?  
 
 - Local file-based repo: coarse path roughly 100-200 despite granular estimates above 700.
@@ -191,8 +208,9 @@ Likely competent-agent tool calls?
 - Deployed verifier proves production grading expects Fropbox uploads and source-room evidence.
 - Environment snapshot proves the visible deployed surface I inspected was email-heavy.
 - Seed email text proves the `/tmp/outputs` conflict.
-- Live eval trace proves the deployed task can consume the full 250-step cap while still failing,
-  with a failure mode tied to practical tool access rather than only finance reasoning.
+- Live eval trace proves the deployed task can consume the full 250-step cap while still failing.
+  It also shows the agent found real deal-room evidence before stalling on execution and upload
+  mechanics.
 
 This is the chain of evidence behind the recommendation. The QA loop in Part 2 is built to make
 this same chain easier to check across a batch.
