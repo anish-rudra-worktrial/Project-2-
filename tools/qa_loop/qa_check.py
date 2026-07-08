@@ -37,6 +37,7 @@ SKIP_DIRS = {
     ".git",
     "__pycache__",
     ".pytest_cache",
+    "qa_outputs",
 }
 
 SKIP_PATH_PARTS = {
@@ -837,7 +838,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--task-json", help="Optional deployed task JSON.")
     parser.add_argument("--verifier", help="Optional deployed verifier Python file.")
     parser.add_argument("--env-snapshot", help="Optional SQLite snapshot from a deployed environment.")
-    parser.add_argument("--out-dir", default="tools/qa_loop/sample_reports", help="Output directory.")
+    parser.add_argument("--out-dir", default="qa_outputs", help="Output directory.")
     parser.add_argument("--report-name", default="qa_report.md", help="Markdown report filename.")
     return parser
 

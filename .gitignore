@@ -1,5 +1,6 @@
 # transient sandbox / scratch
 /tmp/
+qa_outputs/
 southpark_env/
 __pycache__/
 *.py[cod]
