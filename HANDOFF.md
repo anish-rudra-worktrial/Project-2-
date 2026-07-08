@@ -1,17 +1,29 @@
 # SouthPark Centre — Runtime & Grading Spec (reconciliation working doc)
 
-Status: DRAFT. Section 0–2 + Phase 1 are the agreed template. Phases 2–8 to follow the
-same pattern. This doc is what an engineer + the grader build from; the master model is
-the reference, this doc is the authority where they disagree.
+Status: DRAFT / LOCAL FILE-BASED SPEC. Section 0-2 + Phase 1 are the agreed template. Phases 2-8
+follow the same pattern. This doc is what an engineer + the local grader build from; the master
+model is the reference, this doc is the authority where they disagree.
+
+Deployment note (2026-07-07): the Fleet workbench task currently observed for
+`odyssey-real-estate-pe-underwriting-full_243edf59_v1` is an Outlook + Fropbox/Docket adaptation,
+not this exact `/data` + `/tmp/outputs` local task. See `QA_ASSESSMENT.md` and
+`DEPLOYMENT_ALIGNMENT.md` before changing the deployed prompt, seed, or verifier.
 
 ---
 
 ## 0. Runtime environment & the anti-collapse principle
 
-**Environment:** a bash/file environment. The agent reads `/data/**` (PDFs + XLSX) and
+**Local environment:** a bash/file environment. The agent reads `/data/**` (PDFs + XLSX) and
 writes its workbook(s) to `/tmp/outputs/`. PDFs are read with normal tooling (pdftotext /
 python); XLSX with openpyxl/pandas. **LibreOffice (`soffice`) is required in the image** for the
 recalc step below — this is a hard env dependency for grading.
+
+**Deployed Fleet environment:** the observed deployed task uses Outlook + Fropbox/Docket. It expects
+the deal room at `/SouthPark Centre Underwriting`, final uploads in
+`/SouthPark Centre Underwriting/Outputs`, and Python spreadsheet libraries such as `openpyxl` or
+`xlsxwriter`. The deployed verifier is evidence-weighted and does not run this local full-grid
+grader. Do not copy the local `/tmp/outputs` or LibreOffice requirement into that prompt unless the
+deployed harness is intentionally changed to match the local file-based contract.
 
 **Runtime model — build the model, recalc, then grade (decided 2026-06-11).** The intended
 workflow is the real analyst loop and is what makes this a maximum-manual-work task:
@@ -225,8 +237,8 @@ PDF/file reads (OM + 20 abstracts + vendor contracts + rent roll + tracker) plus
   **~340 per-phase deliverable checks** — anchors + LOI terms + Submarket + per-item tables
   (rent roll w/ benchmark, **25 sales + 50 lease** comps, leasing buckets) + Leverage per-lender
   matrix + 3 sensitivity tables + tracker. **All 8 phases covered** (P3/P7/P8 holes closed).
-- **Self-test result:** Identity **30359/30359**, Tracker per-phase **PASS**, Layout-robustness
-  **~30295/30359** (64 omitted-scalar cells = fixture artifact), **Detection PASS** (stale lender,
+- **Self-test result observed 2026-07-07:** Identity **30797/30797**, Tracker per-phase **PASS**,
+  Layout-robustness **27621/30797**, **Detection PASS** (stale lender,
   Brightpath trap, hardcoded monthly NOI, a per-tenant Rent Roll Calc cell, broken invariants,
   a mis-classified comp — all caught).
 - **Grading mode: END-STATE, TEMPLATE-FILL** (final workbook scored; the agent fills the provided

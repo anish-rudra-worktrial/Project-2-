@@ -1,11 +1,25 @@
 # World Layout — Real Estate PE Underwriting (SouthPark Centre)
 
-The 72-file world (**46 PDF / 17 XLSX / 9 HTML**) staged at `/data` by `setup_env.sh`, mapped
+The local file-based world contains 73 files (**46 PDF / 18 XLSX / 9 HTML**) staged at `/data` by
+`setup_env.sh`, mapped
 to its simulated source system. Files flagged `[RH]` are red herrings: present and plausible,
 but not needed to complete the task. Do not delete them; recognizing and excluding them is part
 of the work.
 
-## `/data/emails/` — the inbox (read Email_01 → Email_09 in order)
+Deployment note: the observed Fleet workbench task is an Outlook + Fropbox/Docket adaptation. If
+this world is deployed through Fropbox, preserve the same folder semantics under
+`/SouthPark Centre Underwriting`:
+
+- `Dataroom` maps to `world_files/dataroom`
+- `Ballantyne Office Centre` maps to `world_files/dataroom_deal_b`
+- `Internal` maps to `world_files/internal`
+- `Lenders` maps to `world_files/lenders`
+- `Construction` maps to `world_files/construction`
+- `Market Research` maps to `world_files/market_research`
+
+See `DEPLOYMENT_ALIGNMENT.md` for the required deployed seed preflight.
+
+## `/data/emails/`: the local inbox (read Email_01 -> Email_09 in order)
 Nine HTML emails that drive the week: broker offering (01), VP start-underwriting (02), partner
 JV structure (03), VP forward structure / LOI terms (04), dev-head capex (05), capital-markets
 financing + Atlantic Life "no capacity" flag (06), Deal B mention (07), Deal B forward with IM

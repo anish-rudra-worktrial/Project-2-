@@ -1,5 +1,37 @@
 # Domain/Profession: Real Estate Private Equity — Acquisitions & Underwriting
 
+## Start Here
+
+For the work-trial submission, start with `SUBMISSION.md`. It summarizes the Part 1 assessment, the
+repo changes, the Part 2 QA loop, how to run the tooling, known limits, and presentation prep.
+
+## QA status (2026-07-07)
+
+This repository is internally coherent as a **local bash/file task** (`/data` inputs,
+`/tmp/outputs` outputs, local deterministic full-grid grader). However, the currently deployed
+Fleet workbench task `odyssey-real-estate-pe-underwriting-full_243edf59_v1` uses a different
+**Outlook + Fropbox/Docket** surface and an evidence-weighted deployed verifier.
+
+Read these before modifying or deploying:
+
+- `QA_ASSESSMENT.md`: current assessment, defects, and required fixes.
+- `DEPLOYMENT_ALIGNMENT.md`: local repo surface vs deployed Fleet surface.
+- `prompts/deployed_fropbox_prompt.md`: observed deployed prompt surface.
+
+Do not silently mix `/data` + `/tmp/outputs` instructions with the deployed Fropbox upload
+contract. If production is the deployed task, the seed email and Fropbox source-room preflight need
+to be reconciled before accepting the task as production-ready.
+
+## Review Philosophy
+
+The main QA judgment in this package is not "an evaluator said the task is good." The judgment is
+that a task should only ship when a reviewer can trace the prompt, seed data, verifier, and expected
+outputs back to the same world. I used automation to find likely drift, then checked the important
+findings by reading the prompt, verifier, repo docs, environment snapshot, and source files myself.
+
+That is why the Part 2 tool reports evidence and review actions instead of pass/fail decisions. It
+is built to speed up a 20-30 task batch review while keeping the final call with a human reviewer.
+
 ## Task Title & One-Sentence Goal
 
 **From Broker Package to IC Deck: Underwrite Two Deals in One Week.**
@@ -89,16 +121,20 @@ assumptions; (5) 60-month proforma + CapEx + Exit; (6) VP revision cascade; (7) 
 
 ## More docs
 
-- `HANDOFF.md` — full runtime & grading spec: the 8 phases, the locked-master reconciliation log,
-  the end-state grading design, and per-phase anchors.
-- `WORLD_LAYOUT.md` — every world file, the system it represents, and the red herrings.
-- `CHANGELOG.md` — how the task was built from the author submission and what was flagged.
+- `HANDOFF.md`: full runtime & grading spec: the 8 phases, the locked-master reconciliation log,
+  the end-state grading design, and per-phase anchors for the local file-based task.
+- `WORLD_LAYOUT.md`: every world file, the system it represents, and the red herrings.
+- `CHANGELOG.md`: how the task was built from the author submission and what was flagged.
+- `QA_ASSESSMENT.md` / `DEPLOYMENT_ALIGNMENT.md`: current QA status and deployment drift notes.
+- `PROJECT2_PRESENTATION_PREP.md`: plain-English presentation notes and likely panel questions.
+- `tools/qa_loop/`: reusable QA loop for path, file, prompt, verifier, and environment consistency checks.
 - Template-fill: the agent fills a pre-structured workbook
   (`world_files/internal/SouthPark_Centre_Model_Template.xlsx`, seeded to
-  `/tmp/outputs/southpark_centre_underwriting.xlsx` by `setup_env.sh`) — all 14 tabs, labels, and
+  `/tmp/outputs/southpark_centre_underwriting.xlsx` by `setup_env.sh`): all 14 tabs, labels, and
   Month # headers in place, value cells blank — so its layout matches the grader's keys.
-- Prompts: `prompts/agent_prompt_prescriptive.txt` (the 8-phase task), `agent_prompt_prescriptive_v2.txt`
+- Prompts: `prompts/agent_prompt_prescriptive.txt` (the 8-phase local file-based task), `agent_prompt_prescriptive_v2.txt`
   (the cell-explicit line-item spec), `agent_prompt_narrative.txt` (first-person, reasoning-forward,
-  figures withheld), and `agent_prompt_buildcontract_v1.md` (the legacy detailed tab/row build contract).
+  figures withheld), `agent_prompt_buildcontract_v1.md` (the legacy detailed tab/row build contract),
+  and `deployed_fropbox_prompt.md` (the observed deployed Fleet prompt).
 - Grading: `python3 grade.py <submission_dir>` (deterministic, end-state, ~30,500 checks);
   `python3 grade.py --self-test` (validates the grader vs ground truth); `tools/call_budget.py`.

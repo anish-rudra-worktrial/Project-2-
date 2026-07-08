@@ -22,8 +22,8 @@ The submission dir must contain `southpark_centre_underwriting.xlsx`,
 ```
 python3 selftest.py
 ```
-Expected: Identity **30359/30359**, Tracker per-phase **PASS**, Robustness **~30295/30359**
-(64 omitted-scalar cells are a fixture artifact), Detection **PASS** (all injected errors caught).
+Expected from the current repo state, observed 2026-07-07: Identity **30797/30797**, Tracker
+per-phase **PASS**, Robustness **27621/30797**, Detection **PASS** (all injected errors caught).
 
 ## How grading works (~30,360 checks — every calculation + every phase deliverable)
 - **Layout-tolerant:** every cell is addressed by **(tab, block, row-label, occurrence, column)**

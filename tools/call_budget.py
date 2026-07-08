@@ -3,9 +3,10 @@
 
 Reports two profiles per the odyssey convention:
   - COARSE  : an efficient agent that batches reads and scripts the model build.
-  - GRANULAR: the 'thorough' working style this package targets — files read/interpreted
-              individually, per-item deliverables produced item-by-item, model built and
-              verified in cycles. This is the ~700-call version.
+  - GRANULAR: a thorough item-by-item working style. Files are read and interpreted individually,
+              per-item deliverables produced item-by-item, model built and verified in cycles.
+              This is a ceiling/target profile for the local file-based package, not proven as
+              the floor a capable bash agent must take.
 
 Each phase is decomposed into: file reads, per-item operations (the graded fan-outs),
 model build/edit-run cycles, and verification steps. Coarse applies realistic batching
@@ -38,8 +39,8 @@ def main():
         print(f"{ph:<6}{rd:>6}{it:>7}{bd:>7}{vf:>8}{coarse:>9}{gran:>7}  {note}")
     print("-" * 110)
     print(f"{'TOTAL':<6}{'':>6}{'':>7}{'':>7}{'':>8}{tot_c:>9}{tot_g:>7}")
-    print(f"\nCOARSE (efficient/scripted) ~{tot_c} calls   |   GRANULAR (thorough, this package) ~{tot_g} calls")
-    print("The packaged prompt + per-item graded deliverables target the GRANULAR profile.")
+    print(f"\nCOARSE (efficient/scripted) ~{tot_c} calls   |   GRANULAR (thorough/itemized) ~{tot_g} calls")
+    print("The file-based repo cannot force the granular profile by interface alone; treat it as a target/ceiling.")
 
 if __name__ == "__main__":
     main()

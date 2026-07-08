@@ -1,0 +1,189 @@
+{
+  "env_snapshot": {
+    "attachments": 8,
+    "drive_items": 0,
+    "file_storage": 0,
+    "messages": 9,
+    "tables": 59,
+    "task_linked_resources": 0
+  },
+  "findings": [
+    {
+      "check_id": "WORLD_TYPE_COUNT_MISMATCH",
+      "evidence": "CHANGELOG.md claims PDF/XLSX/HTML = (46, 17, 9); world_files currently has (46, 18, 9).",
+      "human_action": "Update the claim or explain why the text is historical.",
+      "severity": "review",
+      "sources": [
+        "CHANGELOG.md"
+      ],
+      "title": "World file type count claim does not match the repo"
+    },
+    {
+      "check_id": "MISSING_FILE_REFERENCE",
+      "evidence": "`Lease_Abstract_01_Meridian_Financial.pdf` is referenced in prompts/agent_prompt_buildcontract_v1.md.",
+      "human_action": "Check whether this is a renamed file, a generated output, a legacy prompt, or a real missing source.",
+      "severity": "review",
+      "sources": [
+        "prompts/agent_prompt_buildcontract_v1.md"
+      ],
+      "title": "A prompt or primary doc references a file name not found in the repo"
+    },
+    {
+      "check_id": "MISSING_FILE_REFERENCE",
+      "evidence": "`Lease_Abstract_20_SouthPark_Dental.pdf` is referenced in prompts/agent_prompt_buildcontract_v1.md.",
+      "human_action": "Check whether this is a renamed file, a generated output, a legacy prompt, or a real missing source.",
+      "severity": "review",
+      "sources": [
+        "prompts/agent_prompt_buildcontract_v1.md"
+      ],
+      "title": "A prompt or primary doc references a file name not found in the repo"
+    },
+    {
+      "check_id": "DEPLOYED_REPO_PATH_SPLIT",
+      "evidence": "The deployed prompt uses Fropbox paths, while repo files still mention /data or /tmp/outputs. Examples: CHANGELOG.md, DEPLOYMENT_ALIGNMENT.md, HANDOFF.md, QA_ASSESSMENT.md, README.md, WORLD_LAYOUT.md, prompts/agent_prompt_buildcontract_v1.md, prompts/agent_prompt_narrative.txt.",
+      "human_action": "Confirm this is an intentional local-vs-deployed split. If not, pick one contract.",
+      "severity": "review",
+      "sources": [
+        "deployed_task_prompt",
+        "CHANGELOG.md",
+        "DEPLOYMENT_ALIGNMENT.md",
+        "HANDOFF.md",
+        "QA_ASSESSMENT.md",
+        "README.md",
+        "WORLD_LAYOUT.md",
+        "prompts/agent_prompt_buildcontract_v1.md",
+        "prompts/agent_prompt_narrative.txt"
+      ],
+      "title": "Repo docs and deployed prompt use different path contracts"
+    },
+    {
+      "check_id": "MIXED_PATHS_IN_ONE_FILE",
+      "evidence": "DEPLOYMENT_ALIGNMENT.md contains both local file paths and Fropbox/Docket references.",
+      "human_action": "This can be fine in an alignment note. In an agent prompt, it is usually confusing.",
+      "severity": "review",
+      "sources": [
+        "DEPLOYMENT_ALIGNMENT.md"
+      ],
+      "title": "One file mentions both local and Fropbox path contracts"
+    },
+    {
+      "check_id": "MIXED_PATHS_IN_ONE_FILE",
+      "evidence": "HANDOFF.md contains both local file paths and Fropbox/Docket references.",
+      "human_action": "This can be fine in an alignment note. In an agent prompt, it is usually confusing.",
+      "severity": "review",
+      "sources": [
+        "HANDOFF.md"
+      ],
+      "title": "One file mentions both local and Fropbox path contracts"
+    },
+    {
+      "check_id": "MIXED_PATHS_IN_ONE_FILE",
+      "evidence": "QA_ASSESSMENT.md contains both local file paths and Fropbox/Docket references.",
+      "human_action": "This can be fine in an alignment note. In an agent prompt, it is usually confusing.",
+      "severity": "review",
+      "sources": [
+        "QA_ASSESSMENT.md"
+      ],
+      "title": "One file mentions both local and Fropbox path contracts"
+    },
+    {
+      "check_id": "MIXED_PATHS_IN_ONE_FILE",
+      "evidence": "README.md contains both local file paths and Fropbox/Docket references.",
+      "human_action": "This can be fine in an alignment note. In an agent prompt, it is usually confusing.",
+      "severity": "review",
+      "sources": [
+        "README.md"
+      ],
+      "title": "One file mentions both local and Fropbox path contracts"
+    },
+    {
+      "check_id": "MIXED_PATHS_IN_ONE_FILE",
+      "evidence": "WORLD_LAYOUT.md contains both local file paths and Fropbox/Docket references.",
+      "human_action": "This can be fine in an alignment note. In an agent prompt, it is usually confusing.",
+      "severity": "review",
+      "sources": [
+        "WORLD_LAYOUT.md"
+      ],
+      "title": "One file mentions both local and Fropbox path contracts"
+    },
+    {
+      "check_id": "RUNTIME_TOOL_SPLIT",
+      "evidence": "The deployed prompt mentions Python spreadsheet libraries, while repo docs mention LibreOffice. Examples: CHANGELOG.md, DEPLOYMENT_ALIGNMENT.md, HANDOFF.md, QA_ASSESSMENT.md, grade.py, prompts/agent_prompt_prescriptive.txt, prompts/agent_prompt_prescriptive_v2.txt, tools/grader/README.md.",
+      "human_action": "Decide whether LibreOffice is local-only or expected in deployment.",
+      "severity": "review",
+      "sources": [
+        "deployed_task_prompt",
+        "CHANGELOG.md",
+        "DEPLOYMENT_ALIGNMENT.md",
+        "HANDOFF.md",
+        "QA_ASSESSMENT.md",
+        "grade.py",
+        "prompts/agent_prompt_prescriptive.txt",
+        "prompts/agent_prompt_prescriptive_v2.txt",
+        "tools/grader/README.md"
+      ],
+      "title": "Runtime tool claims differ between repo and deployed prompt"
+    },
+    {
+      "check_id": "REPO_HAS_TWO_SURFACES",
+      "evidence": "Local path docs: 12. Fropbox docs: 6. This is useful if clearly labeled, risky if copied into one prompt.",
+      "human_action": "Keep the split explicit in README and handoff docs.",
+      "severity": "info",
+      "sources": [
+        "CHANGELOG.md",
+        "DEPLOYMENT_ALIGNMENT.md",
+        "HANDOFF.md",
+        "QA_ASSESSMENT.md",
+        "README.md",
+        "WORLD_LAYOUT.md"
+      ],
+      "title": "The repo now documents both local and deployed task surfaces"
+    },
+    {
+      "check_id": "SEED_EMAIL_OUTPUT_CONFLICT",
+      "evidence": "The deployed prompt tells the agent to upload to `/SouthPark Centre Underwriting/Outputs`, but an email body mentions `/tmp/outputs`.",
+      "human_action": "Patch the seed email or prompt. The agent should not have to guess which instruction wins.",
+      "severity": "high",
+      "sources": [
+        "env_snapshot",
+        "deployed_task_prompt"
+      ],
+      "title": "Seed email gives an output path that conflicts with the deployed prompt"
+    },
+    {
+      "check_id": "SOURCE_ROOM_NEEDS_PREFLIGHT",
+      "evidence": "Snapshot counts: drive_items=0, file_storage=0. This may be a manager snapshot limitation, so treat it as a preflight item.",
+      "human_action": "Run the verifier's own source-room check against a fresh seed or query the Fropbox DB directly.",
+      "severity": "review",
+      "sources": [
+        "env_snapshot",
+        "deployed_verifier"
+      ],
+      "title": "Verifier expects a source room, but the manager snapshot does not show drive files"
+    },
+    {
+      "check_id": "EMAIL_ATTACHMENT_ONLY_SURFACE",
+      "evidence": "Snapshot counts: messages=9, attachments=8, drive_items=0.",
+      "human_action": "If the intended task needs a Fropbox source room, confirm it is visible through the task tools.",
+      "severity": "info",
+      "sources": [
+        "env_snapshot"
+      ],
+      "title": "Snapshot looks email-attachment heavy"
+    }
+  ],
+  "summary": {
+    "high": 1,
+    "info": 2,
+    "review": 11
+  },
+  "world": {
+    "by_suffix": {
+      "html": 9,
+      "pdf": 46,
+      "xlsx": 18
+    },
+    "exists": true,
+    "total": 73
+  }
+}
