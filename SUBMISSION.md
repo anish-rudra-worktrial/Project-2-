@@ -70,6 +70,12 @@ making the Fropbox source room load-bearing, preserving sequential source reconc
 tightening the verifier around source-backed evidence. If the deployed task only exposes emails and
 8 attachments, it is likely too easy and may sit closer to 75 to 150 calls.
 
+I also ran one capped live eval on the deployed task with `pass_k=1`. The run completed 250 steps
+and scored `0.04`. The trace showed the agent reached the Fropbox/Docket workflow and found the
+SouthPark source folders, then spent many later steps trying to work around missing practical access
+to bash/Python execution for workbook creation and upload. I read that as evidence of a deployed
+tooling/interface problem, not as a clean underwriting-reasoning failure.
+
 Run:
 
 ```bash
@@ -133,9 +139,10 @@ what is real, what is expected context, what is a false positive, and what needs
 ## Known Limits
 
 - I could not patch the live deployed seed email from this repo.
-- I could not fully confirm the deployed Fropbox source room from the manager snapshot I had.
-- The sample QA loop is static. It does not replace a live eval trace review.
-- The local call budget is an estimate until confirmed by a live deployed run.
+- I confirmed the live eval could reach the Fropbox folder structure, but I did not verify every
+  expected source file in that live source room.
+- The sample QA loop is static. It helps prioritize trace review, but it does not replace it.
+- The live eval result is one run, so it is useful evidence but not a stable solve-rate estimate.
 
 ## What I Would Build Next With Two Weeks
 

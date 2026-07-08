@@ -56,6 +56,9 @@ environment snapshot counts, and extracted source facts from the visible attachm
     snapshot I could inspect.
 - The deployed verifier expects a Fropbox source room with at least 64 source files and six source
   folders. That source-room expectation should be confirmed directly against a fresh deployed seed.
+- A capped live eval run completed 250 steps and scored `0.04`. The trace showed the agent could
+  reach the Fropbox/Docket source-folder structure, but then spent many later steps trying to work
+  around missing practical access to bash/Python execution for workbook creation and upload.
 
 ## Major Findings
 
@@ -159,15 +162,17 @@ deployed task is more realistic because it uses Outlook/Fropbox state, but it ne
 confirmation and trace review.
 
 Too easy?  
-If only the deployed 9 emails and 8 attachments are available, yes: likely under 150 competent-agent
-tool calls. With the full Fropbox source room and stricter source reconciliation, it can plausibly
+The live capped eval reached 250 steps and still scored only `0.04`, so the deployed version is not
+a trivial pass in its current interface. The trace suggests the difficulty is partly artificial,
+because the agent got stuck on tooling/execution access rather than only on underwriting judgment.
+With the full Fropbox source room and a clear bash/Python execution path, the task can plausibly
 target 250-300 calls for the work trial.
 
 Likely competent-agent tool calls?  
 
 - Local file-based repo: coarse path roughly 100-200 despite granular estimates above 700.
-- Deployed email-attachment-only world: roughly 75-150.
-- Deployed full Fropbox source room with sequential source reconciliation: roughly 250-350.
+- Deployed full Fropbox source room with working bash/Python path: roughly 250-350.
+- Observed capped live eval: 250 steps, score `0.04`, failed mostly around execution/upload workflow.
 
 ## Fixes Applied In This Repo
 
@@ -186,6 +191,8 @@ Likely competent-agent tool calls?
 - Deployed verifier proves production grading expects Fropbox uploads and source-room evidence.
 - Environment snapshot proves the visible deployed surface I inspected was email-heavy.
 - Seed email text proves the `/tmp/outputs` conflict.
+- Live eval trace proves the deployed task can consume the full 250-step cap while still failing,
+  with a failure mode tied to practical tool access rather than only finance reasoning.
 
 This is the chain of evidence behind the recommendation. The QA loop in Part 2 is built to make
 this same chain easier to check across a batch.
@@ -193,8 +200,9 @@ this same chain easier to check across a batch.
 ## Remaining Before Production
 
 1. Patch deployed seed email `1002` so it no longer says `/tmp/outputs/`.
-2. Run the deployed source-room preflight on a fresh seed and confirm 64+ files and 6/6 folders.
-3. Run at least one capped deployed eval and review trace/tool-call profile.
+2. Run a deeper deployed source-room preflight on a fresh seed and confirm 64+ files and 6/6 folders.
+3. Ensure the deployed agent has a practical bash/Python execution path for workbook creation and
+   upload.
 4. Tighten deployed verifier checks for path, Ballantyne verdict, lender decision, and source/value
    reconciliation.
 5. Decide whether the intended production benchmark is the rich local full-grid model, the deployed
