@@ -32,8 +32,8 @@ verifier preflight before I would call it production-ready. The main risk is not
 The main risk is that the task instructions, source-room shape, and verifier expectations can point
 to different places.
 
-I used scripts and Codex to move faster, but I did not treat tool output as the verdict. I manually
-checked the key evidence: prompt text, verifier constants, repo docs, world-file inventory, deployed
+I used scripts to move faster, but I did not treat tool output as the verdict. I manually checked
+the key evidence: prompt text, verifier constants, repo docs, world-file inventory, deployed
 environment snapshot counts, and extracted source facts from the visible attachments.
 
 ## What Was Verified
@@ -166,7 +166,7 @@ The live capped eval reached 250 steps and still scored only `0.04`, so the depl
 a trivial pass in its current interface. The trace suggests the difficulty is partly artificial,
 because the agent got stuck on tooling/execution access rather than only on underwriting judgment.
 With the full Fropbox source room and a clear bash/Python execution path, the task can plausibly
-target 250-300 calls for the work trial.
+target 250-300 calls for this assignment.
 
 Likely competent-agent tool calls?  
 

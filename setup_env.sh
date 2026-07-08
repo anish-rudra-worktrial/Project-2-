@@ -12,7 +12,7 @@ rm -rf "$TARGET"
 mkdir -p "$TARGET/data" "$TARGET/outputs"
 
 # World Files/<subdir> -> data/<subdir>  (emails, dataroom, dataroom_deal_b, internal,
-# lenders, construction, market_research — incl. nested lease_abstracts/property_reports/archive)
+# lenders, construction, market_research - incl. nested lease_abstracts/property_reports/archive)
 cp -R "$HERE/world_files/." "$TARGET/data/"
 
 # The pipeline tracker is edited by the agent and saved to outputs; seed a copy there too

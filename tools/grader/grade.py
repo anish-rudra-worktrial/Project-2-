@@ -34,7 +34,7 @@ def grade(sub_dir, tracker_phase="8"):
             got = E.find_value(ws, a["label"]) if ws else None
             ok = E.text_eq(got, a["expected"]) if a["kind"] == "text" else _check_num(got, a["expected"], a["tol"])
             add(a["phase"], a["id"], ok, got, a["expected"])
-        # per-item tables (rent roll, sales/lease comps, leasing buckets) — per-field checks
+        # per-item tables (rent roll, sales/lease comps, leasing buckets) - per-field checks
         for pid, ri in KEY["per_item"].items():
             ws = wb[ri["tab"]] if ri["tab"] in wb.sheetnames else None
             got_rows = E.read_table(ws, ri["key_header"], ri["want"]) if ws else []
@@ -53,7 +53,7 @@ def grade(sub_dir, tracker_phase="8"):
     else:
         print(f"  !! workbook missing: {wbp}")
 
-    # ---- CALCULATION LAYER 1: FULL CELL GRIDS — every numeric formula cell vs GT ----
+    # ---- CALCULATION LAYER 1: FULL CELL GRIDS - every numeric formula cell vs GT ----
     if os.path.exists(wbp) and "calc_grids" in KEY:
         for tab, spec in KEY["calc_grids"].items():
             phase = spec["phase"]

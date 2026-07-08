@@ -14,7 +14,7 @@ set -euo pipefail
 DIR="${1:?usage: recalc.sh <dir-with-xlsx>}"
 SOFFICE="$(command -v soffice || command -v libreoffice || echo /Applications/LibreOffice.app/Contents/MacOS/soffice)"
 if [ ! -x "$SOFFICE" ] && ! command -v "$SOFFICE" >/dev/null 2>&1; then
-  echo "recalc: LibreOffice not found — skipping recalc. Formula cells will read as blank." >&2
+  echo "recalc: LibreOffice not found - skipping recalc. Formula cells will read as blank." >&2
   exit 0
 fi
 

@@ -12,7 +12,7 @@ import openpyxl
 def _norm(s):
     if s is None:
         return ""
-    return re.sub(r"\s+", " ", str(s)).strip().lower().replace("’", "'").replace("—", "-")
+    return re.sub(r"\s+", " ", str(s)).strip().lower().replace("’", "'").replace("\u2014", "-")
 
 
 def load(path, data_only=True):

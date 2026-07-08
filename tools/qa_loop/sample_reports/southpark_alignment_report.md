@@ -2,7 +2,7 @@
 
 Failure mode checked: prompt, environment, verifier, and repo docs disagree about files, paths, or runtime assumptions.
 
-This report flags issues for a human reviewer. It does not decide whether the task is good or bad, and it should not be treated as the final answer.
+This report flags issues for a human reviewer. It does not decide whether the task is good or bad.
 
 Recommended review loop:
 
@@ -12,7 +12,7 @@ Recommended review loop:
 
 ## Scope
 
-- Repo: `/Users/fleettrial_candidate/Documents/Codex/2026-07-07/thia/work/odyssey-work-trial`
+- Repo: `current repo`
 - Text files scanned: 31
 - world_files count: 73
 - world_files by suffix: `{"html": 9, "pdf": 46, "xlsx": 18}`

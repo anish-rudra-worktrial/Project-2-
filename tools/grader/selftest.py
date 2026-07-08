@@ -226,7 +226,7 @@ def detection_test():
     for cid in sorted(expected_fail_ids):
         print(f"    {'CAUGHT' if cid in failed else 'MISSED'}  {cid}")
     if unexpected:
-        print(f"  (also failed {len(unexpected)} other checks — collateral from injected breaks, e.g. month-20/30 value mismatches)")
+        print(f"  (also failed {len(unexpected)} other checks - collateral from injected breaks, e.g. month-20/30 value mismatches)")
     return len(missed) == 0
 
 

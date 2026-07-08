@@ -1,4 +1,4 @@
-# Project 2 Submission
+# Project 2 Review Package
 
 Task key: `odyssey-real-estate-pe-underwriting-full_243edf59_v1`  
 Environment: `real-estate-pe-underwriting-office-bash`  
@@ -19,7 +19,7 @@ and uses a different evidence-weighted verifier.
 That mismatch can create fake model failures. A model should fail because the underwriting workflow
 is hard, not because the seed email, prompt, repo docs, and verifier point to different places.
 
-## What Changed
+## Package Contents
 
 - Added `QA_ASSESSMENT.md` with the Part 1 assessment, evidence, risks, and production blockers.
 - Added `DEPLOYMENT_ALIGNMENT.md` to separate the local repo surface from the deployed Fleet
@@ -73,8 +73,8 @@ tightening the verifier around source-backed evidence. If the deployed task only
 I also ran one capped live eval on the deployed task with `pass_k=1`. The run completed 250 steps
 and scored `0.04`. The trace showed the agent reached the Fropbox/Docket workflow and found the
 SouthPark source folders, then spent many later steps trying to work around missing practical access
-to bash/Python execution for workbook creation and upload. I read that as evidence of a deployed
-tooling/interface problem, not as a clean underwriting-reasoning failure.
+to bash/Python execution for workbook creation and upload. That looks like a deployed
+tooling/interface problem, not a clean underwriting-reasoning failure.
 
 Run:
 
@@ -144,7 +144,7 @@ what is real, what is expected context, what is a false positive, and what needs
 - The sample QA loop is static. It helps prioritize trace review, but it does not replace it.
 - The live eval result is one run, so it is useful evidence but not a stable solve-rate estimate.
 
-## What I Would Build Next With Two Weeks
+## Next Build With Two Weeks
 
 I would add a trace analyzer that compares model actions against the static QA warnings. It would
 show whether agents searched for nonexistent paths, got stuck on missing files, skipped source

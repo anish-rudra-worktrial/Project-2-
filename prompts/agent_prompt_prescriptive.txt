@@ -1,20 +1,20 @@
-A pre-structured output workbook is provided at /tmp/outputs/southpark_centre_underwriting.xlsx (a copy is also in /data/internal/SouthPark_Centre_Model_Template.xlsx). It already contains all 14 tabs with their section/row labels and the Month # period headers in place; every value cell is blank for you to fill. Keep the tab names, row labels, and Month # headers intact and fill in the values — the grader locates each value by tab, row label, and column.
+A pre-structured output workbook is provided at /tmp/outputs/southpark_centre_underwriting.xlsx (a copy is also in /data/internal/SouthPark_Centre_Model_Template.xlsx). It already contains all 14 tabs with their section/row labels and the Month # period headers in place; every value cell is blank for you to fill. Keep the tab names, row labels, and Month # headers intact and fill in the values - the grader locates each value by tab, row label, and column.
 
-Build the model with real formulas — this is institutional modeling, not data entry. Wire each tab's calculations and link the IC Summary to the rest of the model (no hardcoded numbers). After each major phase, RECALCULATE the workbook (LibreOffice is available; run tools/recalc.sh on your output dir, or `soffice --headless --convert-to xlsx`) and CHECK your computed outputs against the figures stated in this prompt; fix formula errors and re-run. Grading reads the workbook's computed (cached) values, so it must be recalculated before it is graded.
+Build the model with real formulas - this is institutional modeling, not data entry. Wire each tab's calculations and link the IC Summary to the rest of the model (no hardcoded numbers). After each major phase, RECALCULATE the workbook (LibreOffice is available; run tools/recalc.sh on your output dir, or `soffice --headless --convert-to xlsx`) and CHECK your computed outputs against the figures stated in this prompt; fix formula errors and re-run. Grading reads the workbook's computed (cached) values, so it must be recalculated before it is graded.
 
 The agent’s starting context is a set of emails and a data room. The emails are in /data/emails/ and should be read in chronological order. There is also one reference document in /data/market_research/ that the agent will need to cross-reference.
 
-Phase 1 — Deal Intake, Screening & Pipeline Setup
+Phase 1 - Deal Intake, Screening & Pipeline Setup
 Tabs created: Assumptions, Rent Roll, Rent Roll Calc (3 of 14)
 Deal A (SouthPark Centre) - Full Underwriting Start:
 Fill in the provided workbook at /tmp/outputs/southpark_centre_underwriting.xlsx. This single workbook is populated across all 8 phases - every subsequent phase fills in more of the existing tabs. Do not rename or move tabs, row labels, or the Month # headers.
 Start by reading the Offering Memorandum (Offering_Memorandum_SouthPark_Centre.pdf in /data/dataroom/). Extract the broker’s headline metrics: asking price, total SF, stated occupancy, stated trailing NOI, stated cap rate, price per SF, year built, last renovation, parking count. Record these in the workbook's Deal Summary section (on the IC Summary tab) with two columns - Metric and Broker’s Stated Value. A Reconciled Value column will be populated after the reconciliation below. (Property inputs such as SF, price, and parking are entered on the Assumptions tab.)
 Open Rent_Roll_Current_05-2026.xlsx from /data/dataroom/. This rent roll has 20 tenant rows, all NNN leases. For each tenant, extract: tenant number, tenant name, suite, floor, square footage, current base rent per SF, annual escalation percentage, escalation anniversary month, lease start date, lease expiry date, renewal options, security deposit (months), guarantor entity, and any special notes. Build a Rent Roll tab preserving all 20 rows with these columns.
 Open each of the 20 lease abstracts (Lease_Abstract_Tenant_01.pdf through Lease_Abstract_Tenant_20.pdf). Verify terms match the rent roll.
-Build a Rent Roll Calc tab. This tab will become the monthly cash flow calculation engine — one block per tenant/suite, with rows for rent, escalations, probability-weighted rollover, reimbursements, and TI/LC costs. In this phase, set up the structure and populate the in-place tenant data.
-As part of building the Rent Roll Calc, the agent must reconcile the rent roll against the lease abstracts and the OM’s income lines. The reconciliation does not require a separate formal table — it can be handled implicitly by correcting the data directly in the model (e.g., zeroing the ghost tenant, using the lease abstract rate for Brightpath) and recording the broker-vs.-reconciled comparison in the Deal Summary section (IC Summary tab).
-The agent should discover these planted discrepancies: - Tenant #20 (SouthPark Dental Associates): on the rent roll at $18.00/SF for 1,800 SF, but lease expired March 31, 2026 and they vacated. Broker’s IM counts them in occupancy. Agent must adjust occupancy from 78.0% (218,400 SF) to 77.4% (216,600 SF). - Tenant #6 (Brightpath Insurance): rent roll shows $21.25/SF, but lease abstract shows $20.75/SF — escalation applied to wrong base year. Agent must use the lease abstract rate ($20.75).
-Review the OM’s other-income lines: - $42,000 lease termination fee (Westlake Analytics, Nov 2025) — non-recurring, exclude. - $62,000 antenna income — Sprint contract ($30K) expired Feb 2026, only T-Mobile ($32K) active. Verify via Vendor_Contracts_Summary.xlsx.
+Build a Rent Roll Calc tab. This tab will become the monthly cash flow calculation engine - one block per tenant/suite, with rows for rent, escalations, probability-weighted rollover, reimbursements, and TI/LC costs. In this phase, set up the structure and populate the in-place tenant data.
+As part of building the Rent Roll Calc, the agent must reconcile the rent roll against the lease abstracts and the OM’s income lines. The reconciliation does not require a separate formal table - it can be handled implicitly by correcting the data directly in the model (e.g., zeroing the ghost tenant, using the lease abstract rate for Brightpath) and recording the broker-vs.-reconciled comparison in the Deal Summary section (IC Summary tab).
+The agent should discover these planted discrepancies: - Tenant #20 (SouthPark Dental Associates): on the rent roll at $18.00/SF for 1,800 SF, but lease expired March 31, 2026 and they vacated. Broker’s IM counts them in occupancy. Agent must adjust occupancy from 78.0% (218,400 SF) to 77.4% (216,600 SF). - Tenant #6 (Brightpath Insurance): rent roll shows $21.25/SF, but lease abstract shows $20.75/SF - escalation applied to wrong base year. Agent must use the lease abstract rate ($20.75).
+Review the OM’s other-income lines: - $42,000 lease termination fee (Westlake Analytics, Nov 2025) - non-recurring, exclude. - $62,000 antenna income - Sprint contract ($30K) expired Feb 2026, only T-Mobile ($32K) active. Verify via Vendor_Contracts_Summary.xlsx.
 Update the Deal Summary section (IC Summary tab) with Reconciled Values alongside the Broker’s Stated Values.
 Deal B (Ballantyne Office Centre) - Initial Log:
 Read Email 7 (Sarah mentions Derek Lawson at Ashford has a stabilized deal coming). No IM yet - just log it on the pipeline.
@@ -25,7 +25,7 @@ Ground truth:
 - GT_Pipeline_Tracker_P1_May30.xlsx
 - SouthPark_Centre_Model (Master).xlsx [NB as mentioned this is the full final version, rather than early Phase 1 iteration of it - to discuss]
 
-Phase 2 — Deal B Quick Screen
+Phase 2 - Deal B Quick Screen
 → Read Email 8 (Sarah forwards the Ballantyne IM and rent roll, dated June 1). The IM and rent roll are now available.
 Read Ballantyne_Office_Centre_IM.pdf from /data/dataroom_deal_b/. Extract: asking price ($28M), SF (120,000), occupancy (94%), trailing NOI (~$1.55M), implied cap rate, and the broker’s stated rental growth projection (2%).
 Read Ballantyne_Rent_Roll.xlsx from /data/dataroom_deal_b/. Quick sanity check - verify tenant count and total SF match the IM. No full lease-by-lease analysis needed.
@@ -37,11 +37,11 @@ Ground truth:
 Ground_Truth_Deal_B_WACC_Screen.xlsx
 GT_Pipeline_Tracker_P2_Jun01.xlsx
 
-Phase 3 — Market Research & Comparable Analysis
-→ Tabs created: Sales Comp Analysis, Rental Comp Analysis, SouthPark Submarket, Pure Reference—> (7 of 14) Tabs extended: Rent Roll (adds rent benchmarking section)
+Phase 3 - Market Research & Comparable Analysis
+→ Tabs created: Sales Comp Analysis, Rental Comp Analysis, SouthPark Submarket, Pure Reference - > (7 of 14) Tabs extended: Rent Roll (adds rent benchmarking section)
 Read Charlotte_Office_Market_Report_Q1_2026.pdf and SouthPark_Submarket_Report_Q1_2026.pdf from /data/market_research/. Also read Employment_Growth_Data_Charlotte_MSA.xlsx and Charlotte_Office_Vacancy_Trends_2020-2026.xlsx for demand context.
 Build a SouthPark Submarket tab importing the submarket report data: inventory, vacancy (overall and by class), asking NNN rents, net absorption, construction pipeline. This tab is a direct reproduction of the world file data for reference. Also read Construction_Pipeline_Charlotte_Office.xlsx and include competitive projects delivering into SouthPark or adjacent submarkets during the hold period.
-The workbook already includes a “Pure Reference--->” separator tab dividing the analytical tabs from the reference/data tabs — do not add or rename it.
+The workbook already includes a “Pure Reference--->” separator tab dividing the analytical tabs from the reference/data tabs - do not add or rename it.
 Open Comparable_Sales_Data_Charlotte_Office.xlsx (25 transactions). Build a Sales Comp Analysis tab:
 Comp # | Address | Submarket | Class | SF | Sale Date | Price ($) | Price/SF | Cap Rate | Occ at Sale | Buyer Type | Comp Type (classification code; see legend) | Notes
 The raw dataset contains ~12 usable current trades, 5 crisis-era (2 GFC, 3 COVID), 4 incomplete, and 4 non-comparable. Agent must filter and document rationale.
@@ -55,19 +55,19 @@ Ground truth:
 SouthPark_Centre_Model (Master).xlsx [NB as mentioned this is the full final version, rather than early Phase 1 iteration of it - to discuss]
 GT_Pipeline_Tracker_P3_Jun02.xlsx
 
-Phase 4 — Lease-by-lease underwriting & assumptions
+Phase 4 - Lease-by-lease underwriting & assumptions
 → Tabs extended: Assumptions (adds leasing assumptions by size bucket, spec suite parameters, and JV terms)
 Read the Rent Roll tab (including the rent benchmarking section) and Standard_Lease_Assumptions_Guide.pdf from /data/internal/. The guide specifies default assumptions by tenant size range: renewal probability, downtime, TI (new and renewal), leasing commission, and free rent. The size buckets are: >15,000 SF, 5,000-15,000 SF, 2,000-5,000 SF, and <2,000 SF.
-Extend the Assumptions tab with a Leasing Assumptions by Size section — a table of guide defaults by size bucket (renewal probability, downtime, TI new/renewal, LC, free rent). This is the reference table that drives per-tenant assumptions. Also add spec suite parameters (TI $/SF, buildout duration) and JV/equity waterfall terms (GP/LP split, pref rate, catch-up, residual split) per Emails 3 and 4.
-The per-tenant lease assumptions (renewal probability, market rent, TI, downtime, etc.) are applied directly on the Rent Roll tab and/or the Rent Roll Calc tab — each tenant row references the guide defaults from the Assumptions bucket table, with deviations documented where comps support a different value.
-Tenant #20 (ghost): renewal probability 0%, vacated. Tenant #1 (Meridian, 76K SF): renewal probability 0%, departing per CBJ article. Lease runs to October 31, 2026 — agent must underwrite rent through expiry, not the October move date from the article.
+Extend the Assumptions tab with a Leasing Assumptions by Size section - a table of guide defaults by size bucket (renewal probability, downtime, TI new/renewal, LC, free rent). This is the reference table that drives per-tenant assumptions. Also add spec suite parameters (TI $/SF, buildout duration) and JV/equity waterfall terms (GP/LP split, pref rate, catch-up, residual split) per Emails 3 and 4.
+The per-tenant lease assumptions (renewal probability, market rent, TI, downtime, etc.) are applied directly on the Rent Roll tab and/or the Rent Roll Calc tab - each tenant row references the guide defaults from the Assumptions bucket table, with deviations documented where comps support a different value.
+Tenant #20 (ghost): renewal probability 0%, vacated. Tenant #1 (Meridian, 76K SF): renewal probability 0%, departing per CBJ article. Lease runs to October 31, 2026 - agent must underwrite rent through expiry, not the October move date from the article.
 The Meridian spec suite plan (6 suites, timing, SF) is modeled on the Rent Roll Calc tab alongside all other tenant/suite cash flow blocks, with key parameters (TI $/SF, buildout duration) set on the Assumptions tab. Suite 610: 14,000 SF, fl 6. Suite 620: 13,000 SF, fl 6. Suite 710: 13,000 SF, fl 7. Suite 720: 12,000 SF, fl 7. Suite 810: 12,500 SF, fl 8. Suite 820: 11,500 SF, fl 8. Total = 76,000 SF. Floor 6 starts month 4, floor 7 month 6, floor 8 month 8. Buildout 6 months per suite. (Note: these timing assumptions will be revised in Phase 6 per VP feedback.)
 For the three near-term rollovers (Carter exp 9/2027, Lakeview exp 7/2027, Queen City exp 1/2028), probability-weight renewal vs. vacancy scenarios.
 
 Ground truth: SouthPark_Centre_Model (Master).xlsx [NB as mentioned this is the full final version, rather than early Phase 1 iteration of it - to discuss]
 
 
-Phase 5 — Monthly proforma (initial build)
+Phase 5 - Monthly proforma (initial build)
 → Tabs created: Property Cash Flow, CapEx Schedule, Exit Analysis (10 of 14)
 Build the monthly model covering 60 months with quarterly summaries.
 Property Cash Flow tab - this is the central cash flow tab that will ultimately contain both unlevered and levered cash flows. In this phase, build the unlevered portion:
@@ -81,7 +81,7 @@ Exit Analysis tab: exit cap 7.75% applied to forward-12-month NOI at month 60, 2
 
 Ground truth: SouthPark_Centre_Model (Master).xlsx [NB as mentioned this is the full final version, rather than early Phase 1 iteration of it - to discuss]
 
-Phase 6 — VP Feedback & Model revisions
+Phase 6 - VP Feedback & Model revisions
 → Tabs modified: Assumptions, Property Cash Flow, CapEx Schedule (no new tabs - this phase tests whether the model is truly linked)
 Read Email 9 (Sarah Chen, Wednesday June 3). She has three revision requests:
 Revision 1 - Purchase price: “Run the base case at $50M instead of $52M asking.” Update the purchase-price assumption on the Assumptions tab (it flows to the Deal Summary on IC Summary). This flows through to Loan Sizing (Phase 7), equity requirement, and all return calculations.
@@ -95,11 +95,11 @@ SouthPark_Centre_Model (Master).xlsx [NB as mentioned this is the full final ver
 GT_Pipeline_Tracker_P6_Jun03.xlsx
 
 
-Phase 7 — Construction loan & debt schedule
+Phase 7 - Construction loan & debt schedule
 → Tabs created: Leverage Options (11 of 14) Tabs extended: Property Cash Flow (adds debt service and levered cash flow sections)
 Read the three term sheets and Rachel Kim’s email (Email 6) flagging Atlantic Life’s lack of capacity.
 Build a Leverage Options tab with the following sections:
-Lender Comparison: side-by-side summary of all three lenders. The template's comparison block has a fixed column layout keyed off the “Term” row: an “Active Selection” column (your chosen lender, repeated) followed by the three lender columns — Atlantic Life (under the “STALE QUOTE” header), First Southeast Bank, and Piedmont Capital. Fill each lender's column; mark Atlantic Life as “STALE - No Capacity.”
+Lender Comparison: side-by-side summary of all three lenders. The template's comparison block has a fixed column layout keyed off the “Term” row: an “Active Selection” column (your chosen lender, repeated) followed by the three lender columns - Atlantic Life (under the “STALE QUOTE” header), First Southeast Bank, and Piedmont Capital. Fill each lender's column; mark Atlantic Life as “STALE - No Capacity.”
 Note to grader: Atlantic Life has the best terms (lowest spread, highest LTC, longest IO, full non-recourse). An agent that selects Atlantic Life fails.
 Underwrite BOTH remaining lenders. For each, size the loan, calculate construction interest, determine conversion month, and calculate levered IRR.
 Loan Sizing: total project cost using the revised $50M purchase price (per Phase 6): - Acquisition price: $50,000,000 - Closing costs: 1.5% of acquisition price - Renovation budget: ~$7,500,000 (Pinnacle - links to CapEx Schedule) - Capitalized construction interest (PIK): accrues into loan balance per term sheet - no separately funded interest reserve - Operating shortfall during lease-up: from Property Cash Flow - Origination fee: per selected lender - Working capital reserve: $350,000
@@ -111,7 +111,7 @@ Extend the Property Cash Flow tab with: - Debt service section: IO during constr
 Ground truth: SouthPark_Centre_Model (Master).xlsx [NB as mentioned this is the full final version, rather than early Phase 1 iteration of it - to discuss]
 
 
-Phase 8 — Waterfall, Returns & IC Package
+Phase 8 - Waterfall, Returns & IC Package
 → Tabs created: Waterfall, IC Summary, LOI (14 of 14) Tabs extended: Assumptions (adds sensitivity analysis tables)
 Waterfall tab - build the following sections:
 Waterfall Structure: document the 4-tier structure: - Tier 1: Return of capital (pro-rata) - Tier 2: 8.0% preferred return (compounding monthly, accruing on both GP and LP equity; LP distributions take priority) - Tier 3: 50/50 catch-up until GP has received 20% of cumulative profits - Tier 4: 80% LP / 20% GP

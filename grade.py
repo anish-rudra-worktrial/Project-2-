@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-grade.py — top-level entrypoint for the Real Estate PE Underwriting odyssey task.
+grade.py - top-level entrypoint for the Real Estate PE Underwriting odyssey task.
 
 Delegates to the layout-tolerant, deterministic grader in tools/grader/. End-state grading:
 the agent's final workbook (after Phase 8) is scored against the locked ground truth.

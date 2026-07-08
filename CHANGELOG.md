@@ -1,6 +1,6 @@
-# Changelog — Real Estate PE Underwriting (SouthPark Centre)
+# Changelog - Real Estate PE Underwriting (SouthPark Centre)
 
-## v2 — TMT-model standard (built on branch real-estate-pe-underwriting-v2)
+## v2 - TMT-model standard (built on branch real-estate-pe-underwriting-v2)
 Elevates v1 to the Cloudflare 3-statement reference standard. All four moves built and verified
 (self-test 30797/30797, Detection PASS):
 - **(a) Cell-explicit prompt** (`prompts/agent_prompt_prescriptive_v2.txt`): all 8 phases rewritten
@@ -8,7 +8,7 @@ Elevates v1 to the Cloudflare 3-statement reference standard. All four moves bui
   honest per-cell call count, unambiguous grading, and structurally removes the prompt↔template
   mismatch class (v1's mismatches existed only because the prompt was narrative).
 - **(b) Check = 0**: wired the template's built-in SENSE CHECKS into the grader as residual-~0
-  anchors — Waterfall tier-dists / partner-CF=levered-CF / unreturned-capital=0 / accrued-pref=0,
+  anchors - Waterfall tier-dists / partner-CF=levered-CF / unreturned-capital=0 / accrued-pref=0,
   and Exit "Rent Roll SF = Building SF". A hardcoded "OK" can't fake a zero residual; bite-tested
   (a forced 5,000 residual fails the check).
 - **(c) Primary-source sourcing volume**: added the T-12 Operating Statement reproduction as a
@@ -23,10 +23,10 @@ Elevates v1 to the Cloudflare 3-statement reference standard. All four moves bui
 ## v1 history (below)
 
 ## Recalc-based grading (option #1) + prompt/world reconciliation (2026-06-11)
-A full-workflow sub-agent run surfaced that the ~30k formula-grid cells (98% of checks) can't be
-graded without a recalc engine: the grader reads cached values, openpyxl doesn't compute, and the
-env had none. Resolved by the "build the model, recalc, then grade" loop (maximum manual work —
-the agent builds the formulas, not just inputs):
+A full-workflow sub-agent run surfaced that the ~30k formula-grid cells (98% of checks) cannot be
+graded without a recalc engine: the grader reads cached values, openpyxl does not compute, and the
+env had none. Resolved by the "build the model, recalc, then grade" loop: the agent builds the
+formulas, not just inputs.
 - **LibreOffice is now a required env dependency** (HANDOFF §0).
 - Added `tools/recalc.sh` (LibreOffice headless, forces recalc-on-load) and `grade.py --recalc`
   (recalcs a temp copy before grading; opt-in locally, run by default in the deployed harness).
@@ -41,7 +41,7 @@ the agent builds the formulas, not just inputs):
 - Fixed world: Email 8 IM attachment name `.xlsx` → `.pdf` (the file on disk is the PDF).
 - **Broker-NOI inconsistency resolved (Option A).** The broker's *stated* NOI must equal what the
   OM prints (**$3,880,000**); the $3,860,366 was the T-12 *actual*. Set master IC Summary D34 to a
-  literal $3,880,000 (XML surgery — the cell is display-only, nothing references it) and rebuilt
+  literal $3,880,000 (XML surgery - the cell is display-only, nothing references it) and rebuilt
   `answer_key.json` (exactly one entry changed: `broker_noi` 3,860,366 → 3,880,000; self-test still
   30519/30519). An agent that reads the OM now passes that check.
 - **Leverage Options layout documented.** Added the template's fixed column convention to the Phase 7
@@ -54,30 +54,30 @@ the agent builds the formulas, not just inputs):
 Resolved the grader-vs-prompt mismatch (a build-from-scratch agent scored ~2% on the ~30k-cell
 grid because it could not reproduce the master's ~477 verbatim labels). The agent is now given a
 pre-structured workbook to fill:
-- `world_files/internal/SouthPark_Centre_Model_Template.xlsx` — all 14 tabs, every section/row
+- `world_files/internal/SouthPark_Centre_Model_Template.xlsx` - all 14 tabs, every section/row
   label, and the Month # period headers in place; all value cells blank. `setup_env.sh` seeds it
   to `/tmp/outputs/southpark_centre_underwriting.xlsx` (the grader's expected filename).
 - The prescriptive prompt's "Create the workbook" step is now "fill in the provided workbook,"
   with a preamble describing the template and a keep-labels-intact instruction.
 - HANDOFF grading-mode note updated to END-STATE + TEMPLATE-FILL.
-- **Grader unchanged** — it keys cells by (tab, row-label, occurrence, column), which now match by
+- **Grader unchanged** - it keys cells by (tab, row-label, occurrence, column), which now match by
   construction. Verified: graded as-is the template scores ~0.8% (no answer leakage), with every
   keyed cell located-but-blank; all monthly period headers intact (grid columns map).
 - Built the template by blanking values/formulas via **XML surgery**, not openpyxl resave
   (openpyxl wipes the ~30k cached formula values, which destroyed the formula-based Month #
-  headers — caught and reverted). Also blanked 5 leftover summary formulas (Property Cash Flow
+  headers - caught and reverted). Also blanked 5 leftover summary formulas (Property Cash Flow
   Required Capital / Profit / Repayment) that had cached to 0.
 
 ## World PDFs restyled to Times 12pt / grayscale / industry prose (2026-06-11)
 Re-rendered all 46 world PDFs so they read as genuine industry documents rather than
-machine-generated output, preserving every fact and figure (verified zero lost numeric tokens,
+draft-like output, preserving every fact and figure (verified zero lost numeric tokens,
 so the planted traps and all extractable values are intact):
 - **Times New Roman throughout** (Times-Roman/Times-Bold only) and **grayscale only** (zero
   colored spans).
-- **Prose at 12pt** (body, labels, values) — the dominant text size. Table cells stay 10pt
+- **Prose at 12pt** (body, labels, values) - the dominant text size. Table cells stay 10pt
   (8pt for wide tables like the 14-column rent roll and the comp sheets, which cannot fit at
   12pt); section headers 13pt, document titles 17pt, for normal document hierarchy.
-- **Em-dashes scrubbed** (→ hyphens) as an AI-generation tell; 0 remain.
+- **Punctuation style normalized** to use hyphens consistently; no literal em dashes remain.
 - The existing prose was already industry-grade (the OM reads as a real broker offering; lease
   abstracts and term sheets use the correct terse label:value format) and was preserved.
 - Ground-truth output files were NOT touched.
@@ -85,7 +85,7 @@ so the planted traps and all extractable values are intact):
 ## Restructured into the artemis-odyssey convention (2026-06-11)
 Moved the packaged task from the standalone working folder into the repo layout the other tasks
 use, no grader logic changed:
-- Grader package → `tools/grader/` (`grade.py`, `extract.py`, `build_key.py`, `answer_key.json`,
+- Grader package -> `tools/grader/` (`grade.py`, `extract.py`, `build_key.py`, `answer_key.json`,
   `selftest.py`); new top-level `grade.py` shim delegates to it and adds `--self-test`.
 - `World Files/` → `world_files/`; `Ground Truth Files/` → `ground_truth/` (subdirs preserved so
   the key builder/self-test paths hold); `call_budget.py` → `tools/`; `setup_env.sh` paths updated.
@@ -109,7 +109,7 @@ $50M / $40 TI / month-6-8-10 anchors plus the reconciliation invariants. Accepte
 agent could build the final state directly and skip the ~5% revision loop undetected.
 
 ## Grader built & self-tested (2026-06-10)
-Deterministic, layout-tolerant, end-state grader: ~30,500 checks across three layers — the full
+Deterministic, layout-tolerant, end-state grader: ~30,500 checks across three layers - the full
 calculation grid (~29,840 formula cells of the four calc tabs, ~99% coverage), 180 reconciliation
 invariants on the submission's own values, and ~340 per-phase deliverable checks (anchors, LOI
 terms, 25 sales + 50 lease comp classifications, leasing buckets, the per-lender leverage matrix,
@@ -124,7 +124,7 @@ genuine read-and-interpret (the primary reason the bash agent's call count does 
 data tables kept as XLSX; emails as HTML. Result: 46 PDF / 17 XLSX / 9 HTML, 0 broken references.
 
 ## Open items
-- **Not yet run by a real agent in a deployed Fleet env** — self-tested against ground truth only;
+- **Not yet run by a real agent in a deployed Fleet env** - self-tested against ground truth only;
   the ~705-call estimate and the 0.90 pass threshold are unverified until a live run.
 - ~1% of formula cells (dates/flags + a few unkeyable scalars) are not grid-graded; covered
   indirectly via downstream cells + invariants.

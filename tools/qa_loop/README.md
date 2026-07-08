@@ -7,9 +7,9 @@ Prompt, environment, verifier, and repo docs disagree about files, paths, or run
 It is meant to help review 20-30 tasks at a time. It does not decide whether a task passes QA. It
 points a human reviewer to concrete evidence.
 
-This is intentionally not an automated judge. The tool is a fast consistency pass that helps a reviewer
-spend their time on the places where a task is most likely to be unfair: missing files, mixed paths,
-stale verifier assumptions, or seed data that disagrees with the prompt.
+The tool is a fast consistency pass, not a pass/fail gate. It helps a reviewer spend time on the
+places where a task is most likely to be unfair: missing files, mixed paths, stale verifier
+assumptions, or seed data that disagrees with the prompt.
 
 ## Why This Check
 
@@ -59,7 +59,7 @@ python3 tools/qa_loop/qa_check.py \
   --report-name southpark_alignment_report.md
 ```
 
-For this Codex workspace, the command I used was:
+Example command used to generate the included sample report:
 
 ```bash
 python3 tools/qa_loop/qa_check.py \

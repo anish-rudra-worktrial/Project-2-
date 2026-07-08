@@ -1,9 +1,9 @@
-# Domain/Profession: Real Estate Private Equity — Acquisitions & Underwriting
+# Domain/Profession: Real Estate Private Equity - Acquisitions & Underwriting
 
 ## Start Here
 
-For the work-trial submission, start with `SUBMISSION.md`. It summarizes the Part 1 assessment, the
-repo changes, the Part 2 QA loop, how to run the tooling, and known limits.
+Start with `SUBMISSION.md`. It summarizes the assessment, repo changes, QA loop, run commands, and
+known limits.
 
 ## QA status (2026-07-07)
 
@@ -37,8 +37,8 @@ is built to speed up a 20-30 task batch review while keeping the final call with
 **From Broker Package to IC Deck: Underwrite Two Deals in One Week.**
 You are a second-year acquisitions associate at **Harborview Capital Partners (Fund III)**. Over
 the week of **June 1, 2026** you work an email inbox and a multi-folder data room to underwrite
-**Deal A — SouthPark Centre** (280,000 SF value-add office, Charlotte NC) into a full **14-tab
-institutional model, IC package, and LOI**, and **Deal B — Ballantyne Office Centre** (120,000 SF
+**Deal A - SouthPark Centre** (280,000 SF value-add office, Charlotte NC) into a full **14-tab
+institutional model, IC package, and LOI**, and **Deal B - Ballantyne Office Centre** (120,000 SF
 stabilized) into a quick **WACC screen** that you pass on. The work runs across **8 sequential
 phases**, includes a mid-week VP revision cascade, and is tracked on a
 running pipeline tracker. You write `southpark_centre_underwriting.xlsx`,
@@ -79,8 +79,8 @@ running pipeline tracker. You write `southpark_centre_underwriting.xlsx`,
 
 ### How solving it moves toward a "mini-breakthrough"
 
-- A model that can carry a linked 14-tab institutional model through a revision cascade — where
-  one input change must flow correctly to loan sizing, returns, and the waterfall — is doing the
+- A model that can carry a linked 14-tab institutional model through a revision cascade - where
+  one input change must flow correctly to loan sizing, returns, and the waterfall - is doing the
   core analytical work of an investment associate, not just spreadsheet data entry.
 
 ## What It Teaches the AI Model
@@ -130,7 +130,7 @@ assumptions; (5) 60-month proforma + CapEx + Exit; (6) VP revision cascade; (7) 
 - Template-fill: the agent fills a pre-structured workbook
   (`world_files/internal/SouthPark_Centre_Model_Template.xlsx`, seeded to
   `/tmp/outputs/southpark_centre_underwriting.xlsx` by `setup_env.sh`): all 14 tabs, labels, and
-  Month # headers in place, value cells blank — so its layout matches the grader's keys.
+  Month # headers in place, value cells blank - so its layout matches the grader's keys.
 - Prompts: `prompts/agent_prompt_prescriptive.txt` (the 8-phase local file-based task), `agent_prompt_prescriptive_v2.txt`
   (the cell-explicit line-item spec), `agent_prompt_narrative.txt` (first-person, reasoning-forward,
   figures withheld), `agent_prompt_buildcontract_v1.md` (the legacy detailed tab/row build contract),

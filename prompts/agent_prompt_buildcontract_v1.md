@@ -1,18 +1,18 @@
-# Runtime Prompt — SouthPark Centre Underwriting — **v1: BUILD FROM SCRATCH**
+# Runtime Prompt - SouthPark Centre Underwriting - **v1: BUILD FROM SCRATCH**
 
 > **Version:** v1 (build-from-scratch). The agent creates the entire 14-tab workbook from a blank
 > file, following the prescriptive steps below (exact assumptions, line items, and formulas, keyed
-> by tab + row label — no pre-built template, no hard cell coordinates). This preserves the
+> by tab + row label - no pre-built template, no hard cell coordinates). This preserves the
 > ~700-call profile and feeds the cell-level grader. A separate **v2 (template-fill)** variant
-> hands the agent a pre-structured workbook and uses exact cell references — to be written next.
+> hands the agent a pre-structured workbook and uses exact cell references - to be written next.
 > All prescribed values are verified against the locked ground truth (`grader/answer_key.json`).
 
 ---
 
 The task is to underwrite two office acquisitions for Harborview Capital Partners (Fund III) over
-one week and produce a full institutional model. **Deal A — SouthPark Centre** (NYSE-style ticker
+one week and produce a full institutional model. **Deal A - SouthPark Centre** (NYSE-style ticker
 n/a; 4800 Sharon Road, Charlotte, NC 28211; 280,000 RSF Class B+ value-add office, broker Crestline
-Advisors, $52,000,000 guidance) gets a full 14-tab model, IC package, and LOI. **Deal B — Ballantyne
+Advisors, $52,000,000 guidance) gets a full 14-tab model, IC package, and LOI. **Deal B - Ballantyne
 Office Centre** (120,000 SF stabilized Class A-, broker Ashford Partners) gets a quick WACC screen.
 
 You are a second-year acquisitions associate. It is the week of **June 1, 2026**. Your inputs are an
@@ -21,13 +21,13 @@ email inbox (`/data/emails/`, read in chronological order Email_01 → Email_09)
 `/data/construction/`, `/data/market_research/`). Build Deal A in
 `/tmp/outputs/southpark_centre_underwriting.xlsx`, Deal B in
 `/tmp/outputs/ballantyne_wacc_screen.xlsx`, and maintain `/tmp/outputs/Pipeline_Tracker_Q2_2026.xlsx`
-(start from the copy in `/data/internal/`). Use the exact tab names and row labels given below — the
+(start from the copy in `/data/internal/`). Use the exact tab names and row labels given below - the
 grader locates values by them. Where an assumption is given "for simplicity," use exactly that value
 (it is graded); where you are asked to make a recommendation, put it in the noted space (not graded).
 
 ---
 
-## Phase 1 — Deal Intake, Reconciliation & Pipeline Setup
+## Phase 1 - Deal Intake, Reconciliation & Pipeline Setup
 Tabs created: **Assumptions, Rent Roll, Rent Roll Calc.**
 
 → Read `Offering_Memorandum_SouthPark_Centre.pdf` (`/data/dataroom/`). On the **Assumptions** tab, in a
@@ -43,25 +43,25 @@ Lease Start, Expiry, Renewal, Status.
 tenant's terms against the rent roll, one tenant at a time.
 → Reconcile the broker's numbers. Log one entry per discrepancy (source file, broker value, reconciled
 value, decision):
-  - **Tenant #20 SouthPark Dental** — rent roll shows it leased, but the lease expired **3/31/2026** and
+  - **Tenant #20 SouthPark Dental** - rent roll shows it leased, but the lease expired **3/31/2026** and
     the suite is vacant. The broker counts it in occupancy. **Correct occupancy from 78.0% (218,400 SF)
     to 77.4% (216,600 SF)** and zero this tenant.
-  - **Tenant #6 Brightpath Insurance** — rent roll shows **$21.25/SF**; the lease abstract shows
+  - **Tenant #6 Brightpath Insurance** - rent roll shows **$21.25/SF**; the lease abstract shows
     **$20.75/SF** (escalation applied to the wrong base year). **Use $20.75** (Annual Rent $163,925).
-  - **Lease termination fee $42,000** (Westlake Analytics, Nov 2025) in the OM other-income — **exclude**
+  - **Lease termination fee $42,000** (Westlake Analytics, Nov 2025) in the OM other-income - **exclude**
     (non-recurring).
-  - **Antenna income $62,000** — Sprint's $30,000 contract **expired Feb 2026**; only T-Mobile's
+  - **Antenna income $62,000** - Sprint's $30,000 contract **expired Feb 2026**; only T-Mobile's
     **$32,000** is active. Verify against `Vendor_Contracts_Summary.xlsx`. **Use $32,000.**
 → Build the **Rent Roll Calc** tab structure: one block per tenant/suite with rows for Occupancy Flag,
 In-Place Rent, Re-Let Flag, Re-Let Rent (gross), Free Rent Adj, Net Base Rent, Opex Recovery (NNN),
 TI (capital), LC (capital), and monthly columns (Month 0 = close). Populate the in-place tenant data
 now; the cash-flow engine is completed in Phase 5.
 → Read **Email 7** (Sarah mentions a Ballantyne deal). On **Pipeline_Tracker_Q2_2026.xlsx** add two rows:
-SouthPark Centre — Status **Screening**, Broker Crestline Advisors, SF 280,000, Asking $52M, Strategy
-Value-Add; Ballantyne Office Centre — Status **Awaiting Info**, Broker Ashford Partners, SF 120,000,
+SouthPark Centre - Status **Screening**, Broker Crestline Advisors, SF 280,000, Asking $52M, Strategy
+Value-Add; Ballantyne Office Centre - Status **Awaiting Info**, Broker Ashford Partners, SF 120,000,
 Asking TBD, Strategy Stabilized Core.
 
-## Phase 2 — Deal B Quick Screen (Ballantyne)
+## Phase 2 - Deal B Quick Screen (Ballantyne)
 → Read **Email 8** (Sarah forwards the Ballantyne IM and rent roll) and `Ballantyne_Office_Centre_IM.pdf`
 (`/data/dataroom_deal_b/`). Extract: Asking Price **$28,000,000**, SF **120,000**, Occupancy **94%**,
 Trailing NOI **$1,550,000**, Projected Rental Growth **2.0%**.
@@ -79,7 +79,7 @@ lease-by-lease analysis.
 → Write a 2–3 sentence **Pass** recommendation (priced too tight; no value-add angle). Update the tracker:
 Ballantyne Status → **Screened - Pass**.
 
-## Phase 3 — Market Research & Comparable Analysis
+## Phase 3 - Market Research & Comparable Analysis
 Tabs created: **Sales Comp Analysis, Rental Comp Analysis, SouthPark Submarket.**
 
 → Read `Charlotte_Office_Market_Report_Q1_2026.pdf` and `SouthPark_Submarket_Report_Q1_2026.pdf`
@@ -89,9 +89,9 @@ Tabs created: **Sales Comp Analysis, Rental Comp Analysis, SouthPark Submarket.*
 → Open `Comparable_Sales_Data_Charlotte_Office.xlsx` (25 transactions). Build **Sales Comp Analysis**
 with a **Comp Type** column classifying **each** comp on this 4-level scale: **1** = usable current
 (**12** comps), **2** = older / crisis-era (**5**), **3** = wrong submarket or type (**4**),
-**4** = incomplete (**4**). Evaluate every comp individually — do not bulk-filter.
+**4** = incomplete (**4**). Evaluate every comp individually - do not bulk-filter.
 → Open `Comparable_Lease_Data_SouthPark.xlsx` (50 transactions). Build **Rental Comp Analysis** with a
-**Comp Type** column on this 6-level scale: **1** = large-block build-to-suit (**1** — the Meridian BTS,
+**Comp Type** column on this 6-level scale: **1** = large-block build-to-suit (**1** - the Meridian BTS,
 80,000 SF in Ballantyne), **2** = usable current small/medium (**25**), **3** = older (**8**),
 **4** = wrong submarket (**6**), **5** = wrong type (**5**), **6** = incomplete (**5**). The single
 large-block comp confirms there is **no comp** supporting leasing the 76,000 SF anchor space as one
@@ -100,11 +100,11 @@ block.
 rent by size bucket, with the in-place-vs-market spread.
 → Update tracker: SouthPark → **Underwriting - Market Research**.
 
-## Phase 4 — Lease-by-Lease Underwriting & Assumptions
+## Phase 4 - Lease-by-Lease Underwriting & Assumptions
 Tab extended: **Assumptions** (leasing-by-size, spec-suite parameters, JV terms).
 
 → Read `Standard_Lease_Assumptions_Guide.pdf` (`/data/internal/`). On **Assumptions**, add a
-"Leasing Assumptions by Size" table (use exactly these — they are graded):
+"Leasing Assumptions by Size" table (use exactly these - they are graded):
 
 | Bucket | Mkt Rent $/SF | Renew % | Downtime (mo) | New TI $/SF | Ren TI $/SF | LC % | Free New (mo) | Free Ren (mo) |
 |---|---|---|---|---|---|---|---|---|
@@ -131,7 +131,7 @@ Suite 610 = 14,000 (fl 6), 620 = 13,000 (fl 6), 710 = 13,000 (fl 7), 720 = 12,00
 (fl 8), 820 = 11,500 (fl 8); total **76,000**. Buildout start: **floor 6 = month 4, floor 7 = month 6,
 floor 8 = month 8** (revised in Phase 6).
 
-## Phase 5 — Monthly Proforma (initial build)
+## Phase 5 - Monthly Proforma (initial build)
 Tabs created: **Property Cash Flow, CapEx Schedule, Exit Analysis.** 60-month model, Month 0 = close.
 
 → On **Property Cash Flow** build the monthly unlevered model with these rows: Occupancy %, Net Rental
@@ -145,7 +145,7 @@ Operating Expenses, Management Fee, Net Operating Income, then capital and cash-
   - Other Income: Parking **$230,000/yr growing 2.5%**, Antenna **$32,000/yr growing 2.0%**, Storage
     **$20,000/yr flat**.
   - Operating Expenses: escalate from reconciled Year-1 levels at the **30-year CPI average of 2.7%**
-    (`US_Inflation_Data.xlsx`). **Management Fee = 3.5% of EGI** (circular — solve iteratively or lag).
+    (`US_Inflation_Data.xlsx`). **Management Fee = 3.5% of EGI** (circular - solve iteratively or lag).
   - Reconciliation invariants the model must satisfy each month: **EGI = Net Rental + Expense Recovery +
     Other Income**; **NOI = EGI + Vacancy + Operating Expenses + Management Fee** (the latter three
     negative).
@@ -156,8 +156,8 @@ building reserves **$0.50/SF escalating 2.5%/yr**.
 → **Exit Analysis**: Exit Cap Rate **7.75%** applied to forward-12-month NOI at month 60; **2.0%**
 disposition costs; compute Gross Exit Value, Net Sale Proceeds, and the unlevered Equity Multiple.
 
-## Phase 6 — VP Revisions
-Tabs modified: **Assumptions, Property Cash Flow, CapEx Schedule** (no new tabs — this tests model
+## Phase 6 - VP Revisions
+Tabs modified: **Assumptions, Property Cash Flow, CapEx Schedule** (no new tabs - this tests model
 linkage).
 
 → Read **Email 9** (Sarah Chen, Wed June 3). Apply exactly three changes:
@@ -169,7 +169,7 @@ linkage).
 → Re-open Property Cash Flow, CapEx Schedule, and Exit Analysis and confirm the cascade. Update tracker:
 SouthPark → **Underwriting - VP Revisions Applied**.
 
-## Phase 7 — Construction Loan & Debt Schedule
+## Phase 7 - Construction Loan & Debt Schedule
 Tab created: **Leverage Options.** Tab extended: **Property Cash Flow** (debt + levered sections).
 
 → Read the three term sheets in `/data/lenders/` and **Email 6** (Rachel Kim flags Atlantic Life's lack
@@ -185,7 +185,7 @@ of capacity). Build a **Leverage Options** lender comparison (one column per len
 | Term | 5 yr | 10 yr | 7 yr |
 | Origination Fee | 1.00% | 0.50% | 0.75% |
 
-  - **Mark Atlantic Life "STALE — No Capacity"** (per Email 6). Atlantic has the *best* terms; selecting
+  - **Mark Atlantic Life "STALE - No Capacity"** (per Email 6). Atlantic has the *best* terms; selecting
     it fails the task.
   - **Underwrite BOTH viable lenders** (First Southeast and Piedmont): size the loan (LTC/LTV/DSCR
     constrained), compute capitalized PIK construction interest, the 18-month draw schedule, the
@@ -198,25 +198,25 @@ of capacity). Build a **Leverage Options** lender comparison (one column per len
 conversion) and a levered cash-flow section (unlevered CF − debt service, plus exit equity proceeds =
 net sale − loan payoff). Invariant: **Total Levered CF = Total Unlevered CF + Total CF from Financing**.
 
-## Phase 8 — Waterfall, Returns, IC Package & LOI
+## Phase 8 - Waterfall, Returns, IC Package & LOI
 Tabs created: **Waterfall, IC Summary, LOI.** Tab extended: **Assumptions** (sensitivity tables).
 
-→ **Waterfall** — build the 4-tier GP/LP structure: Tier 1 return of capital; Tier 2 **8.0% preferred
+→ **Waterfall** - build the 4-tier GP/LP structure: Tier 1 return of capital; Tier 2 **8.0% preferred
 return** (compounding, LP priority); Tier 3 **50/50 catch-up until GP has 20% of cumulative profit**;
 Tier 4 **80% LP / 20% GP**. Build monthly capital ledgers and the distribution waterfall; produce a
-return summary: GP IRR, LP IRR, GP & LP Equity Multiple, Peak Equity Outstanding — Total, GP Share of
+return summary: GP IRR, LP IRR, GP & LP Equity Multiple, Peak Equity Outstanding - Total, GP Share of
 Total Profit, Deal IRR (Total Equity). Sense checks: tier distributions = available cash each month; LP +
 GP net CF = levered CF.
 → Extend **Assumptions** with **three two-way sensitivity tables** (cells show "IRR% / MoICx"):
   1. **Purchase Price ($46M–$50M) × Exit Cap Rate** (base 7.75% ± 50 bps in 25-bp steps).
   2. **Construction Cost Overrun (0/10/20/30%) × Lease-Up Delay (0/3/6/9 months).**
   3. **Purchase Price ($46M–$50M) × Rent Growth** (base 2.7% ± 200 bps in 50-bp steps).
-→ **IC Summary** — read `IC_Summary_Template.xlsx` (`/data/internal/`). Every value links to another tab
+→ **IC Summary** - read `IC_Summary_Template.xlsx` (`/data/internal/`). Every value links to another tab
 (no hardcoded numbers). Required labeled rows: Purchase Price, Physical Occupancy (Corrected),
 Number of Tenants (Actual), Reconciled NOI, Broker's Stated NOI, Year 1 Proforma NOI, Stabilized NOI,
 Exit Year NOI, Unlevered IRR, Selected Lender, Loan Amount, GP IRR, LP IRR, LP Equity Multiple, Total
 Project IRR, and **Go / No-Go = Go**.
-→ **LOI** — read `LOI_Template.xlsx` (`/data/internal/`). Populate from the model + Email 4: Buyer
+→ **LOI** - read `LOI_Template.xlsx` (`/data/internal/`). Populate from the model + Email 4: Buyer
 **Harborview Capital Partners (or its designee)**, Property SouthPark Centre, Purchase Price
 **$50,000,000**, Deposit **$500,000** (1% hard), Due Diligence Period **45** days, Financing Contingency
 **30** days from DD expiration, Exclusivity **60 days**, Tenant Estoppels **≥75% by occupied SF**, Total
@@ -225,7 +225,7 @@ SF 280,000, This LOI expires **10** business days, Target Close **August 1, 2026
 
 ---
 
-## Output Schema (REQUIRED — grading depends on it)
+## Output Schema (REQUIRED - grading depends on it)
 
 Files in `/tmp/outputs/`: `southpark_centre_underwriting.xlsx`, `ballantyne_wacc_screen.xlsx`,
 `Pipeline_Tracker_Q2_2026.xlsx`.

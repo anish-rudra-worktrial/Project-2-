@@ -671,7 +671,7 @@ def write_markdown(
     lines.append("")
     lines.append("Failure mode checked: prompt, environment, verifier, and repo docs disagree about files, paths, or runtime assumptions.")
     lines.append("")
-    lines.append("This report flags issues for a human reviewer. It does not decide whether the task is good or bad, and it should not be treated as the final answer.")
+    lines.append("This report flags issues for a human reviewer. It does not decide whether the task is good or bad.")
     lines.append("")
     lines.append("Recommended review loop:")
     lines.append("")
@@ -681,7 +681,7 @@ def write_markdown(
     lines.append("")
     lines.append("## Scope")
     lines.append("")
-    lines.append(f"- Repo: `{repo}`")
+    lines.append("- Repo: `current repo`")
     lines.append(f"- Text files scanned: {len(docs)}")
     if inv.get("world_exists"):
         lines.append(f"- world_files count: {inv['world_total']}")

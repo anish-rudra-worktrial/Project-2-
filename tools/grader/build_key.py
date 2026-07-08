@@ -54,7 +54,7 @@ ANCHORS = [
     ("gp_equity_share", 4, "Assumptions", "GP Equity Share", "num", 0, "invariant"),
     ("preferred_return", 4, "Assumptions", "Preferred Return (effective annual)", "num", 0, "invariant"),
     ("residual_gp", 8, "Assumptions", "Residual Split - GP", "num", 0, "invariant"),
-    # ---- LOI (Phase 8) — deal terms from model + Email 4 ----
+    # ---- LOI (Phase 8) - deal terms from model + Email 4 ----
     ("loi_purchase_price", 8, "LOI", "Purchase Price", "num", 0, "final"),
     ("loi_deposit", 8, "LOI", "Deposit", "num", 0, "final"),
     ("loi_total_sf", 8, "LOI", "Total SF", "num", 0, "final"),
@@ -64,13 +64,13 @@ ANCHORS = [
     ("loi_buyer", 8, "LOI", "Buyer", "text", None, "final"),
     ("loi_exclusivity", 8, "LOI", "Exclusivity", "text", None, "final"),
     ("loi_estoppels", 8, "LOI", "Tenant Estoppels", "text", None, "final"),
-    # ---- SouthPark Submarket (Phase 3) — reproduced market data ----
+    # ---- SouthPark Submarket (Phase 3) - reproduced market data ----
     ("sub_vacancy", 3, "SouthPark Submarket", "Overall Vacancy Rate", "text", None, "invariant"),
     ("sub_class_a_rent", 3, "SouthPark Submarket", "Class A", "text", None, "invariant"),
     ("sub_net_absorption", 3, "SouthPark Submarket", "Net Absorption (TTM)", "text", None, "invariant"),
     ("sub_under_construction", 3, "SouthPark Submarket", "Under Construction", "text", None, "invariant"),
     ("sub_rent_growth", 3, "SouthPark Submarket", "12-Month Rent Growth (Class B+)", "text", None, "invariant"),
-    # ---- Leverage Options (Phase 7) — selected (active) lender terms ----
+    # ---- Leverage Options (Phase 7) - selected (active) lender terms ----
     ("lev_rate", 7, "Leverage Options", "All-In Rate (indicative)", "text", None, "final"),
     ("lev_ltc", 7, "Leverage Options", "Maximum LTC", "text", None, "final"),
     ("lev_perm_loan", 7, "Leverage Options", "Max Permanent Loan (LTV stabilized)", "num", 50000, "final"),
@@ -103,7 +103,7 @@ def build():
         key["dealb_anchors"].append({"id": aid, "phase": phase, "label": label,
                                      "kind": kind, "tol": tol, "expected": E.find_value(btab, label)})
 
-    # ---- per-item: Rent Roll (20 tenants) — identity + benchmark assumptions (P1/P3/P4) ----
+    # ---- per-item: Rent Roll (20 tenants) - identity + benchmark assumptions (P1/P3/P4) ----
     rr_want = {"name": "Tenant", "sf": "SF", "rent": "Rent $/SF",
                "mkt_rent": "Mkt Rent $/SF", "renew": "Renew %", "new_ti": "New TI $/SF"}
     rr = E.read_table(wb["Rent Roll"], "Tenant", rr_want)
@@ -114,7 +114,7 @@ def build():
                                     "fields": {"sf": 0, "rent": 0.01, "mkt_rent": 0.5,
                                                "renew": 0.001, "new_ti": 1.0}, "rows": rr}
 
-    # ---- per-item: Sales comps (25) + Lease comps (50) — each classified ----
+    # ---- per-item: Sales comps (25) + Lease comps (50) - each classified ----
     sc = [r for r in E.read_table(wb["Sales Comp Analysis"], "#", {"id": "#", "ctype": "Comp Type"})
           if isinstance(r["id"], (int, float))]
     key["per_item"]["sales_comps"] = {"phase": 3, "tab": "Sales Comp Analysis", "key_header": "#",
@@ -188,7 +188,7 @@ def build():
         want = {r["deal"]: r for r in rows if r["deal"] in ("SouthPark Centre", "Ballantyne Office Centre")}
         key["tracker"][ph] = {"snapshot": fn, "rows": want}
 
-    # ---- CALCULATION LAYER 1: FULL CELL GRIDS — every numeric formula cell of every calc tab ----
+    # ---- CALCULATION LAYER 1: FULL CELL GRIDS - every numeric formula cell of every calc tab ----
     CALC_TABS = {"Rent Roll Calc": 4, "Property Cash Flow": 5, "CapEx Schedule": 5, "Waterfall": 8}
     grids = {}
     for tab, phase in CALC_TABS.items():
