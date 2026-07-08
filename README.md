@@ -33,6 +33,10 @@ The live capped eval finished at 250 steps with score `0.04`. The run failed aro
 execution and upload flow, which supports the assessment that the task needs tighter surface alignment
 before it should be treated as production-ready.
 
+The core QA standard is simple: the task world, prompt, tools, and verifier should train the agent on
+the real underwriting workflow, not on hidden contradictions in the environment. When those pieces
+drift, the score becomes a weaker signal about model capability.
+
 ## Run The QA Loop
 
 ```bash

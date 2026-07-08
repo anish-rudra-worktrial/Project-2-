@@ -19,6 +19,11 @@ and uses a different evidence-weighted verifier.
 That mismatch can create fake model failures. A model should fail because the underwriting workflow
 is hard, not because the seed email, prompt, repo docs, and verifier point to different places.
 
+I treated the task as a training environment, not just a prompt. The prompt, source room, available
+tools, and verifier together create the signal an agent learns from. My main recommendation is to
+protect that signal by making sure failures come from the real underwriting work, not from avoidable
+environment drift.
+
 ## Package Contents
 
 - Added `QA_ASSESSMENT.md` with the Part 1 assessment, evidence, risks, and production blockers.

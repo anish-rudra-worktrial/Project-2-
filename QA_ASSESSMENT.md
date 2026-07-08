@@ -27,6 +27,10 @@ I treated this as a production QA problem, not as a prompt rewrite exercise. The
 coming back to was: can a competent agent solve the task from the visible world, and will the
 verifier reward the same work the prompt asked for?
 
+The reason this matters is that the task is the training environment. If the simulated world is
+faithful and the verifier is aligned, the model gets a useful signal. If the world and verifier
+disagree, the model is being tested on environment drift instead of the professional workflow.
+
 My answer is: the local repo task is coherent, but the deployed version still needs a seed and
 verifier preflight before I would call it production-ready. The main risk is not the finance domain.
 The main risk is that the task instructions, source-room shape, and verifier expectations can point
