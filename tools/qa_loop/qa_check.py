@@ -44,7 +44,6 @@ SKIP_PATH_PARTS = {
 }
 
 SKIP_FILES = {
-    "PROJECT2_PRESENTATION_PREP.md",
     "SUBMISSION.md",
 }
 

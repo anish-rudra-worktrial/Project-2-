@@ -3,7 +3,7 @@
 ## Start Here
 
 For the work-trial submission, start with `SUBMISSION.md`. It summarizes the Part 1 assessment, the
-repo changes, the Part 2 QA loop, how to run the tooling, known limits, and presentation prep.
+repo changes, the Part 2 QA loop, how to run the tooling, and known limits.
 
 ## QA status (2026-07-07)
 
@@ -126,7 +126,6 @@ assumptions; (5) 60-month proforma + CapEx + Exit; (6) VP revision cascade; (7) 
 - `WORLD_LAYOUT.md`: every world file, the system it represents, and the red herrings.
 - `CHANGELOG.md`: how the task was built from the author submission and what was flagged.
 - `QA_ASSESSMENT.md` / `DEPLOYMENT_ALIGNMENT.md`: current QA status and deployment drift notes.
-- `PROJECT2_PRESENTATION_PREP.md`: plain-English presentation notes and likely panel questions.
 - `tools/qa_loop/`: reusable QA loop for path, file, prompt, verifier, and environment consistency checks.
 - Template-fill: the agent fills a pre-structured workbook
   (`world_files/internal/SouthPark_Centre_Model_Template.xlsx`, seeded to

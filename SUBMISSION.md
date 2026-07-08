@@ -28,7 +28,6 @@ is hard, not because the seed email, prompt, repo docs, and verifier point to di
 - Updated README, handoff, world-layout, grader docs, and call-budget notes so maintainers do not
   mix local and deployed assumptions.
 - Added `tools/qa_loop/` with a reusable consistency checker for batch QA.
-- Added `PROJECT2_PRESENTATION_PREP.md` with a plain-English talk track and likely panel questions.
 
 ## Part 1: Assessment And Fixes
 
@@ -146,13 +145,3 @@ evidence, or completed the task in far fewer calls than claimed. I would also ad
 dashboard for 20 to 30 tasks, with each warning linked back to the prompt, verifier, seed, and trace
 evidence. The goal would be to let a reviewer spend time on judgment rather than manually hunting
 for mismatches across every file.
-
-## Presentation Prep
-
-Use `PROJECT2_PRESENTATION_PREP.md` for the 10-minute presentation outline and likely Q&A.
-
-Best one-liner:
-
-I turned a messy one-task review into a repeatable QA loop that helps a human reviewer check whether
-the prompt, environment, verifier, and repo actually agree.
-
